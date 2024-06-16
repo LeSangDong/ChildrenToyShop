@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="box_yellow">#FFD600</color>
+    <color name="green">#36A870</color>
+    <color name="grey">#696363</color>
+    <color name="sky">#00B0FF</color>
+    <color name="grey_icon">#EBEBF0</color>
+    <color name="box_search">#DDDDE3</color>
+    <color name="btn_red">#FF424F</color>
+    <color name="red">#FF00</color>
+    <color name="bg_account">#EBEBF0</color>
+    <color name="lighsen">#E0FFFF</color>
+
+    <integer-array name="color_array">
+        <item>@color/black</item>
+        <item>@color/white</item>
+        <item>@color/box_yellow</item>
+        <item>@color/green</item>
+        <item>@color/grey</item>
+        <item>@color/sky</item>
+        <item>@color/grey_icon</item>
+        <item>@color/red</item>
+    </integer-array>
+</resources>

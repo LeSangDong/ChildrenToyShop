@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="RoundFab" parent="Widget.MaterialComponents.FloatingActionButton">
+        <item name="shapeAppearanceOverlay">@style/RoundedShapeAppearance</item>
+        <item name="backgroundTint">@color/sky</item> <!-- Màu nền của nút -->
+    </style>
+
+    <style name="RoundedShapeAppearance">
+        <item name="cornerSize">50%</item> <!-- Đặt góc cong cho nút -->
+    </style>
+
+</resources>

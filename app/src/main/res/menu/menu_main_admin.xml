@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/productFragment"
+        android:icon="@drawable/img_2"
+        android:title="Sản phẩm"/>
+    <item android:id="@+id/contactFragment"
+        android:icon="@drawable/baseline_chat_24"
+        android:title="Phản hồi"/>
+    <item android:id="@+id/orderFragment"
+        android:icon="@drawable/img_4"
+        android:title="Đơn hàng"/>
+    <item android:id="@+id/accountFragment"
+        android:icon="@drawable/img_5"
+        android:title="Tài khoản"/>
+
+
+</menu>

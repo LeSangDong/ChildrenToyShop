@@ -1,0 +1,23 @@
+<resources>
+    <string name="app_name">Toys Shop</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="logoshop">Tốt &amp; Nhanh</string>
+    <string name="tv1">Được đồng kiểm khi nhận hàng.</string>
+    <string name="tv2">Được hoàn tiền 100% nếu là hàng giả.</string>
+    <string name="tv3">Đổi trả miễn phí trong 30 ngày khi bạn đổi ý\nhoặc sản phẩm không đúng cam kết.</string>
+
+
+    <string-array name="name_colors">
+        <item>Đen</item>
+        <item>Trắng</item>
+        <item>Vàng</item>
+        <item>Xanh</item>
+        <item>Xám</item>
+        <item>Xanh da trời</item>
+        <item>Xám trắng</item>
+        <item>Đỏ</item>
+
+    </string-array>
+
+</resources>

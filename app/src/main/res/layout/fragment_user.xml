@@ -1,0 +1,310 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".fragments.UserFragment">
+ 
+ <com.google.android.material.appbar.AppBarLayout
+     android:id="@+id/appBar"
+     android:background="@color/bg_account"
+     android:fitsSystemWindows="true"
+     android:theme="@style/AppTheme.TransparentStatusBar"
+     android:layout_width="match_parent"
+     android:layout_height="180dp">
+
+  <com.google.android.material.appbar.CollapsingToolbarLayout
+      android:layout_width="match_parent"
+      app:contentScrim="?attr/colorPrimary"
+      app:layout_scrollFlags="scroll|snap|exitUntilCollapsed"
+      android:fitsSystemWindows="true"
+      android:id="@+id/collapsing_toolbar"
+      app:title="Tên Người Dùng"
+      android:layout_height="match_parent">
+   <ImageView
+       app:layout_collapseMode="parallax"
+       android:layout_gravity="center"
+       android:layout_marginBottom="15dp"
+       android:backgroundTint="@null"
+       android:scaleType="fitEnd"
+       android:layout_width="200dp"
+       android:layout_height="200dp"/>
+   <de.hdodenhof.circleimageview.CircleImageView
+       android:src="@drawable/img_10"
+       android:id="@+id/img_avatar"
+       app:layout_collapseMode="parallax"
+       android:layout_marginBottom="40dp"
+       android:layout_marginStart="16dp"
+       android:layout_gravity="bottom"
+       android:layout_marginEnd="16dp"
+       android:layout_width="60dp"
+       android:layout_height="60dp"/>
+
+   <TextView
+       android:id="@+id/tv_notifiication_cart"
+       android:layout_width="20dp"
+       android:layout_height="20dp"
+       android:background="@drawable/custom_notification"
+       android:gravity="center"
+       android:text="2"
+       app:layout_collapseMode="parallax"
+       android:textColor="@color/white"
+       android:textSize="10sp"
+       android:layout_gravity="bottom|end"
+       android:layout_marginEnd="15dp"
+       android:layout_marginBottom="10dp"
+       app:layout_constraintBottom_toTopOf="@+id/fab"
+       app:layout_constraintEnd_toEndOf="@+id/fab"
+       app:layout_constraintTop_toTopOf="@+id/fab" />
+
+   <androidx.appcompat.widget.Toolbar
+       android:id="@+id/toolbar"
+       android:layout_width="match_parent"
+       android:layout_height="?attr/actionBarSize"
+       android:background="@android:color/transparent"
+       app:layout_collapseMode="pin">
+
+    <ImageView
+        android:id="@+id/action_setting"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end"
+        android:layout_marginEnd="16dp"
+        android:src="@drawable/baseline_settings_24" />
+   </androidx.appcompat.widget.Toolbar>
+
+
+  </com.google.android.material.appbar.CollapsingToolbarLayout>
+
+ </com.google.android.material.appbar.AppBarLayout>
+ 
+ <androidx.core.widget.NestedScrollView
+     android:background="@color/white"
+     android:layout_width="match_parent"
+     app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
+     android:layout_height="match_parent">
+  <androidx.constraintlayout.widget.ConstraintLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content">
+   <View
+       android:id="@+id/line_1"
+       app:layout_constraintTop_toTopOf="parent"
+       app:layout_constraintStart_toStartOf="parent"
+       app:layout_constraintEnd_toEndOf="parent"
+       android:background="@color/grey_icon"
+       android:layout_width="match_parent"
+       android:layout_height="1dp"/>
+   <TextView
+       android:text="Đơn hàng"
+       android:textSize="16sp"
+       android:textColor="@color/grey"
+       android:textStyle="bold"
+       android:fontFamily="@font/inter"
+       app:layout_constraintTop_toBottomOf="@id/line_1"
+       app:layout_constraintStart_toStartOf="parent"
+       android:layout_marginStart="16dp"
+       android:layout_marginTop="20dp"
+       android:id="@+id/label1"
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"/>
+
+   <ImageView
+       android:id="@+id/iv_cart"
+       android:layout_width="30dp"
+       android:layout_height="30dp"
+       android:layout_marginStart="30dp"
+       android:layout_marginTop="20dp"
+       android:src="@drawable/img_12"
+       app:layout_constraintStart_toStartOf="parent"
+       app:layout_constraintTop_toBottomOf="@id/label1" />
+
+   <TextView
+       android:id="@+id/tv_notifiication_waite_pay"
+       android:layout_width="20dp"
+       android:layout_height="20dp"
+       android:background="@drawable/custom_notification"
+       android:gravity="center"
+       app:layout_constraintStart_toEndOf="@id/iv_cart"
+       android:text="2"
+       android:textColor="@color/white"
+       android:textSize="10sp"
+       app:layout_constraintBottom_toTopOf="@+id/iv_cart"
+       app:layout_constraintEnd_toEndOf="@+id/iv_cart"
+       app:layout_constraintTop_toTopOf="@+id/iv_cart" />
+
+   <TextView
+       android:text="Chờ thanh toán"
+       android:id="@+id/tv1"
+       app:layout_constraintTop_toBottomOf="@id/iv_cart"
+       app:layout_constraintStart_toStartOf="parent"
+       android:layout_marginStart="10dp"
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"/>
+
+   <ImageView
+       app:layout_constraintTop_toBottomOf="@id/label1"
+    app:layout_constraintStart_toStartOf="parent"
+       app:layout_constraintEnd_toEndOf="parent"
+       android:src="@drawable/img_13"
+       android:layout_marginTop="20dp"
+       android:id="@+id/iv_cart1"
+       android:layout_width="30dp"
+       android:layout_height="30dp"/>
+   <TextView
+
+       android:text="2"
+       android:id="@+id/tv_notifiication_process"
+       android:textColor="@color/white"
+       android:background="@drawable/custom_notification"
+       android:gravity="center"
+       android:textSize="10sp"
+       app:layout_constraintStart_toEndOf="@id/iv_cart1"
+       app:layout_constraintBottom_toTopOf="@+id/iv_cart1"
+       app:layout_constraintEnd_toEndOf="@+id/iv_cart1"
+       app:layout_constraintTop_toTopOf="@+id/iv_cart1"
+       android:layout_width="20dp"
+       android:layout_height="20dp"/>
+   <TextView
+       android:text="Chờ xác nhận"
+       app:layout_constraintTop_toBottomOf="@id/iv_cart1"
+    app:layout_constraintStart_toStartOf="parent"
+       app:layout_constraintEnd_toEndOf="parent"
+       android:id="@+id/tv2"
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"/>
+   <ImageView
+       app:layout_constraintTop_toBottomOf="@id/label1"
+       app:layout_constraintEnd_toEndOf="parent"
+       android:layout_marginEnd="30dp"
+       android:src="@drawable/img_14"
+       android:layout_marginStart="100dp"
+       android:layout_marginTop="20dp"
+       android:id="@+id/iv_cart2"
+       android:layout_width="30dp"
+       android:layout_height="30dp"/>
+   <TextView
+
+       android:text="2"
+       android:id="@+id/tv_notifiication_transport"
+       android:textColor="@color/white"
+       android:background="@drawable/custom_notification"
+       android:gravity="center"
+       android:textSize="10sp"
+       app:layout_constraintStart_toEndOf="@id/iv_cart2"
+       app:layout_constraintBottom_toTopOf="@+id/iv_cart2"
+       app:layout_constraintEnd_toEndOf="@+id/iv_cart2"
+       app:layout_constraintTop_toTopOf="@+id/iv_cart2"
+       android:layout_width="20dp"
+       android:layout_height="20dp"/>
+   <TextView
+       android:text="Đang vận chuyển"
+       app:layout_constraintTop_toBottomOf="@id/iv_cart2"
+       app:layout_constraintEnd_toEndOf="parent"
+       android:layout_marginEnd="16dp"
+       android:layout_marginStart="56dp"
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"/>
+
+   <View
+       app:layout_constraintTop_toBottomOf="@id/tv1"
+       app:layout_constraintStart_toStartOf="parent"
+       app:layout_constraintEnd_toEndOf="parent"
+       android:background="@color/grey_icon"
+       android:layout_marginTop="10dp"
+       android:id="@id/line_2"
+       android:layout_width="match_parent"
+       android:layout_height="2dp"/>
+   <androidx.constraintlayout.widget.ConstraintLayout
+       android:layout_marginTop="10dp"
+       android:id="@+id/layout_fedback"
+       android:background="@color/white"
+       app:layout_constraintTop_toBottomOf="@id/line_2"
+       app:layout_constraintStart_toStartOf="parent"
+       app:layout_constraintEnd_toEndOf="parent"
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content">
+    <TextView
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:id="@+id/label_fecback"
+        android:text="Đánh giá sản phẩm"
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:fontFamily="@font/inter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+    <androidx.recyclerview.widget.RecyclerView
+        app:layout_constraintTop_toBottomOf="@id/label_fecback"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="10dp"
+        android:id="@+id/recyclerview_fedback"
+        android:layout_marginBottom="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+
+   </androidx.constraintlayout.widget.ConstraintLayout>
+   <View
+       app:layout_constraintTop_toBottomOf="@id/layout_fedback"
+       app:layout_constraintStart_toStartOf="parent"
+       app:layout_constraintEnd_toEndOf="parent"
+       android:background="@color/grey_icon"
+       android:layout_marginTop="10dp"
+       android:id="@id/line3"
+       android:layout_width="match_parent"
+       android:layout_height="3dp"/>
+   <TextView
+       android:text="Gợi ý sản phẩm"
+       android:textStyle="bold"
+       android:id="@+id/labels2"
+       android:fontFamily="@font/inter"
+       app:layout_constraintTop_toBottomOf="@id/line3"
+       app:layout_constraintStart_toStartOf="parent"
+       android:layout_marginTop="10dp"
+       android:layout_marginStart="16dp"
+       android:textSize="16sp"
+       android:textColor="@color/grey"
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"/>
+
+   <androidx.recyclerview.widget.RecyclerView
+       app:layout_constraintTop_toBottomOf="@id/labels2"
+       app:layout_constraintStart_toStartOf="parent"
+       app:layout_constraintEnd_toEndOf="parent"
+       android:layout_marginTop="10dp"
+       android:id="@+id/recyclerview"
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"/>
+
+
+
+
+  </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+ </androidx.core.widget.NestedScrollView>
+ <com.google.android.material.floatingactionbutton.FloatingActionButton
+     android:layout_width="wrap_content"
+     android:baselineAlignBottom="false"
+     android:clickable="true"
+     app:fabSize="normal"
+     style="@style/RoundFab"
+     app:layout_anchor="@id/appBar"
+     android:src="@drawable/img_4"
+     app:layout_anchorGravity="end|bottom"
+     android:layout_marginRight="30dp"
+     android:id="@+id/fab"
+     android:backgroundTint="@color/sky"
+     android:layout_height="wrap_content"/>
+
+
+
+
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
