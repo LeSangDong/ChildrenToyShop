@@ -13,21 +13,31 @@
         app:layout_constraintBottom_toBottomOf="parent"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-        <ImageView
-            android:id="@+id/imageView"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:scaleType="centerCrop"
-            android:src="@drawable/noimage"
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardView"
+            android:background="@color/white"
             android:layout_width="120dp"
-            android:layout_height="120dp"/>
+            android:layout_height="120dp"
+            app:cardCornerRadius="16dp"
+
+            app:cardElevation="4dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
+
+            <ImageView
+                android:id="@+id/imageView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="centerCrop"
+                android:src="@drawable/noimage" />
+        </androidx.cardview.widget.CardView>
         <TextView
-            android:layout_marginTop="10dp"
             android:textSize="14sp"
-            app:layout_constraintTop_toBottomOf="@id/imageView"
+            app:layout_constraintTop_toBottomOf="@id/cardView"
             app:layout_constraintStart_toStartOf="parent"
             android:text="Ten san pham"
+            android:layout_marginTop="5dp"
             android:layout_marginStart="5dp"
             android:layout_marginEnd="5dp"
             android:maxLines="1"
@@ -67,6 +77,7 @@
             app:layout_constraintTop_toBottomOf="@id/ratingbar"
             app:layout_constraintStart_toStartOf="parent"
             android:text="200.000đ"
+            android:layout_marginStart="5dp"
             android:textColor="@color/black"
             android:id="@+id/tv_price"
             android:fontFamily="@font/inter"

@@ -1,14 +1,131 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".fragments.ChatFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+   <androidx.constraintlayout.widget.ConstraintLayout
+       android:background="@color/sky"
+       android:layout_alignParentTop="true"
+       android:layout_alignParentStart="true"
+       android:layout_alignParentEnd="true"
+       android:id="@+id/layout_titile"
+       android:layout_width="match_parent"
+       android:layout_height="?attr/actionBarSize">
+       <ImageView
+           app:layout_constraintTop_toTopOf="parent"
+           app:layout_constraintBottom_toBottomOf="parent"
+           app:layout_constraintStart_toStartOf="parent"
+           android:src="@drawable/baseline_arrow_back_24"
+           android:layout_marginStart="16dp"
+           android:id="@+id/btn_back"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"/>
+       <TextView
+           app:layout_constraintTop_toTopOf="parent"
+           app:layout_constraintBottom_toBottomOf="parent"
+           app:layout_constraintStart_toStartOf="parent"
+           app:layout_constraintEnd_toEndOf="parent"
+           android:text="Liên Hệ"
+           android:textSize="20sp"
+           android:fontFamily="@font/inter"
+           android:textColor="@color/white"
+           android:textStyle="bold"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"/>
 
-</FrameLayout>
+   </androidx.constraintlayout.widget.ConstraintLayout>
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:layout_below="@id/layout_titile"
+        android:id="@+id/swipeRefreshLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+     <LinearLayout
+         android:orientation="vertical"
+         android:layout_width="match_parent"
+         android:layout_height="wrap_content">
+         <androidx.constraintlayout.widget.ConstraintLayout
+             android:layout_marginHorizontal="16dp"
+             android:id="@+id/item_chat_with_admin"
+             android:elevation="5dp"
+             android:layout_width="match_parent"
+             android:layout_height="60dp">
+             <de.hdodenhof.circleimageview.CircleImageView
+                 app:layout_constraintTop_toTopOf="parent"
+                 app:layout_constraintStart_toStartOf="parent"
+                 app:layout_constraintBottom_toBottomOf="parent"
+                 app:civ_border_width="1dp"
+                 android:id="@+id/image_avatar_admin"
+                 app:civ_border_color="@color/grey"
+                 android:src="@drawable/logotoyshop"
+                 android:layout_width="50dp"
+                 android:layout_height="50dp"/>
+             <TextView
+                 app:layout_constraintTop_toTopOf="parent"
+                 app:layout_constraintStart_toEndOf="@id/image_avatar_admin"
+                 android:text="Nhắn tin với người bán"
+                 app:layout_constraintBottom_toBottomOf="parent"
+                 android:textSize="20sp"
+                 android:textStyle="bold"
+                 android:textColor="@color/black"
+                 android:layout_marginStart="16dp"
+                 android:id="@+id/tv_name_admin"
+                 android:layout_width="wrap_content"
+                 android:layout_height="wrap_content"/>
+
+         </androidx.constraintlayout.widget.ConstraintLayout>
+         <com.google.android.material.divider.MaterialDivider
+             android:layout_width="match_parent"
+             android:layout_height="1dp"/>
+         <androidx.constraintlayout.widget.ConstraintLayout
+             android:layout_below="@id/item_chat_with_admin"
+             android:layout_marginHorizontal="16dp"
+             android:id="@+id/item_phone_with_admin"
+             android:elevation="5dp"
+             android:layout_width="match_parent"
+             android:layout_height="60dp">
+             <de.hdodenhof.circleimageview.CircleImageView
+                 app:layout_constraintTop_toTopOf="parent"
+                 app:layout_constraintStart_toStartOf="parent"
+                 app:layout_constraintBottom_toBottomOf="parent"
+                 app:civ_border_width="1dp"
+                 android:id="@+id/icon_phone"
+                 app:civ_border_color="@color/grey"
+                 android:src="@drawable/baseline_phone_24"
+                 android:layout_width="50dp"
+                 android:layout_height="50dp"/>
+             <TextView
+                 app:layout_constraintTop_toTopOf="parent"
+                 app:layout_constraintStart_toEndOf="@id/icon_phone"
+                 android:text="000000000"
+                 app:layout_constraintBottom_toBottomOf="parent"
+                 android:textSize="20sp"
+                 android:textStyle="bold"
+                 android:textColor="@color/black"
+                 android:layout_marginStart="16dp"
+                 android:id="@+id/tv_phone_admin"
+                 android:layout_width="wrap_content"
+                 android:layout_height="wrap_content"/>
+             <ImageView
+                 android:id="@+id/btn_phone"
+                 app:layout_constraintEnd_toEndOf="parent"
+                 app:layout_constraintTop_toTopOf="parent"
+                 app:layout_constraintBottom_toBottomOf="parent"
+                 android:layout_marginEnd="16dp"
+                 android:src="@drawable/baseline_phone_forwarded_24"
+                 android:layout_width="wrap_content"
+                 android:layout_height="wrap_content"/>
+
+         </androidx.constraintlayout.widget.ConstraintLayout>
+         <com.google.android.material.divider.MaterialDivider
+             android:layout_width="match_parent"
+             android:layout_height="1dp"/>
+
+     </LinearLayout>
+
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+</RelativeLayout>

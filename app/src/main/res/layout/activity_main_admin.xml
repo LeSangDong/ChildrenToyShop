@@ -33,6 +33,7 @@
         app:menu="@menu/menu_main_admin"
         app:itemIconSize="24dp"
         app:itemBackground="@color/white"
+        app:layout_constraintTop_toBottomOf="@id/fragment_container_admin_view"
         app:itemActiveIndicatorStyle="@android:color/transparent"
         app:itemHorizontalTranslationEnabled="false"
         app:itemIconTint="@color/bottom_selected_color"

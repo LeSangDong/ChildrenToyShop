@@ -1,11 +1,13 @@
 package com.example.toysshop.fragments;
 
+import android.content.Intent;
 import android.graphics.Paint;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -19,6 +21,9 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.example.toysshop.R;
+import com.example.toysshop.activitys.AddressActivity;
+import com.example.toysshop.activitys.HomeAddressActivity;
+import com.example.toysshop.activitys.MapsActivity;
 import com.example.toysshop.adapter.BannerViewpagerAdapter;
 import com.example.toysshop.adapter.CategoryAdapter;
 import com.example.toysshop.adapter.ToyAdapter;
@@ -113,6 +118,9 @@ public class HomeFragment extends Fragment {
 
         //set dia chi
         binding.tvLocation.setPaintFlags(binding.tvLocation.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
+        binding.tvLocation.setOnClickListener(v->{
+            startActivity(new Intent(requireContext(), HomeAddressActivity.class));
+        });
      showLoadingFragment();
 
 
@@ -129,12 +137,53 @@ public class HomeFragment extends Fragment {
         //fetchAllProduct
         fetchAllProduct();
 
-        binding.tvLocation.setText("Duyen Hai, Long Huu, Tra Vinh");
+        fetchAddress();
         binding.ivCart.setOnClickListener(v->{
 
             navController.navigate(R.id.cartFragment);
 
         });
+
+    }
+
+    private void fetchAddress() {
+        FirebaseUser currentUser = auth.getCurrentUser();
+        if(currentUser != null){
+            DatabaseReference phoneRef = FirebaseDatabase.getInstance().getReference("phone").child(currentUser.getUid());
+            phoneRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    if(snapshot.exists()){
+
+                            String address = snapshot.child("address").getValue(String.class);
+                           if(address != null){
+                               binding.tvLocation.setText(address);
+                           }
+                           else{
+                               binding.tvTitleLocation.setVisibility(View.GONE);
+                               binding.tvLocation.setVisibility(View.GONE);
+                           }
+
+
+
+                    }
+                    else{
+                        binding.tvTitleLocation.setVisibility(View.GONE);
+                        binding.tvLocation.setVisibility(View.GONE);
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+
+                }
+            });
+
+        }
+        else{
+            Toast.makeText(requireContext(), "Bạn chưa đăng nhập", Toast.LENGTH_SHORT).show();
+        }
+
 
     }
 

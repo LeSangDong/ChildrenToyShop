@@ -187,7 +187,7 @@ public class AddProductActivity extends AppCompatActivity {
     private void pushProductToDatabase(String name_product, String price_product, String description, String color_product, String size_product, String thuong_hieu, int categoryId, ArrayList<String> imageUrls) {
         // Tạo một đối tượng Toys mới
       Toy toy = new Toy();
-        toy.setBestToy(true); // Cập nhật theo logic của bạn
+        toy.setBestToy(binding.checkBestProduct.isChecked());
         toy.setNewProduct(true); // Cập nhật theo logic của bạn
         toy.setId(currentId); // Sử dụng ID hiện tại
         toy.setLike(true); // Cập nhật theo logic của bạn

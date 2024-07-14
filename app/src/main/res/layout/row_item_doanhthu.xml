@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_margin="2dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/white"
+    android:layout_height="wrap_content">
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:padding="10dp"
+        android:id="@+id/layout"
+        android:layout_height="wrap_content">
+        <TextView
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:text="Mã đơn hàng: "
+            android:fontFamily="@font/inter"
+            android:textColor="@color/grey"
+            android:id="@+id/tv_title1"
+            android:textSize="16sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+        <TextView
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/tv_title1"
+            android:text="172000000"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:layout_marginStart="16dp"
+            android:textColor="@color/black"
+            android:fontFamily="@font/inter"
+            android:id="@+id/tv_orderid"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"/>
+        <TextView
+          app:layout_constraintTop_toBottomOf="@id/tv_title1"
+            app:layout_constraintStart_toStartOf="parent"
+            android:text="Ngày đặt hàng: "
+            android:layout_marginTop="5dp"
+            android:fontFamily="@font/inter"
+            android:textColor="@color/grey"
+            android:id="@+id/tv_title2"
+            android:textSize="16sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+        <TextView
+            app:layout_constraintTop_toBottomOf="@id/tv_orderid"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/tv_title2"
+            android:text="00/00/2024"
+            android:layout_marginTop="5dp"
+            android:textSize="16sp"
+            android:layout_marginStart="16dp"
+            android:textColor="@color/black"
+            android:fontFamily="@font/inter"
+            android:id="@+id/tv_day"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"/>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+    <com.google.android.material.divider.MaterialDivider
+        android:layout_below="@id/layout"
+        android:layout_marginHorizontal="10dp"
+        android:id="@+id/divider"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"/>
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_below="@id/divider"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
+        android:layout_marginHorizontal="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:text="Tổng Tiền: "
+            android:textStyle="bold"
+            android:textColor="@color/green"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+        <TextView
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:text="00 0000 VND"
+            android:textColor="@color/green"
+            android:textStyle="bold"
+            android:id="@+id/tv_sum"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</RelativeLayout>

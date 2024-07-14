@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/green"
+    android:background="@color/white"
     tools:context=".activitys.OrderSuccessActivity">
 
     <com.airbnb.lottie.LottieAnimationView
@@ -15,17 +15,28 @@
         app:lottie_rawRes="@raw/animation_success"
         app:lottie_autoPlay="true"
         app:lottie_loop="false"/>
-    <androidx.appcompat.widget.AppCompatButton
+    <TextView
+        android:text="Đặt hàng thành công !"
+        android:textStyle="bold"
+        android:fontFamily="@font/poppin"
+        android:textColor="@color/black"
         android:layout_below="@id/animationView"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+    <androidx.appcompat.widget.AppCompatButton
+        android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:background="@drawable/custom_btn_add_cart"
         android:text="Tiếp tục mua sắm"
         android:textColor="@color/white"
         android:id="@+id/btn_continue"
-        android:layout_marginTop="20dp"
+        android:layout_marginBottom="50dp"
         android:textAllCaps="false"
         android:backgroundTint="#00897B"
-        android:layout_width="200dp"
+        android:layout_marginHorizontal="16dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 
 </RelativeLayout>

@@ -12,19 +12,29 @@
         app:layout_constraintEnd_toEndOf="parent"
         android:id="@+id/animationView"
         android:layout_width="300dp"
-        android:layout_height="400dp"
+        android:layout_height="300dp"
         app:lottie_rawRes="@raw/lottie_login"
         app:lottie_autoPlay="true"
         android:layout_marginTop="30dp"
         app:lottie_loop="true"/>
+    <ImageView
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:src="@drawable/baseline_back_new_24"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="40dp"
+        android:id="@+id/btn_back"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/layout_bottom_login"
         android:background="@drawable/custom_layout_signup"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginBottom="80dp"
         android:layout_width="match_parent"
-        android:layout_height="415dp">
+        android:layout_height="wrap_content">
         <TextView
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -85,31 +95,101 @@
             android:layout_marginTop="10dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
-        <androidx.appcompat.widget.AppCompatButton
+        <androidx.constraintlayout.widget.ConstraintLayout
             app:layout_constraintTop_toBottomOf="@id/tv_forgotpass"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginTop="20dp"
-            android:background="@drawable/custom_buttom"
             android:layout_marginEnd="54dp"
-            android:layout_marginStart="54dp"
+            android:background="@drawable/custom_buttom"
             android:backgroundTint="@color/box_yellow"
-            android:text="Đăng Nhập"
+            android:layout_marginStart="54dp"
+            android:layout_marginTop="20dp"
             android:id="@+id/btn_login"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
-        <com.airbnb.lottie.LottieAnimationView
-           app:layout_constraintTop_toBottomOf="@id/btn_login"
+            android:layout_height="50dp">
+            <TextView
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:text="Đăng nhập"
+                android:id="@+id/tv_btn"
+                android:textSize="18sp"
+                android:textColor="@color/black"
+                android:textStyle="bold"
+                android:fontFamily="@font/inter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+            <com.airbnb.lottie.LottieAnimationView
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:id="@+id/progress_bar"
+                android:layout_width="24dp"
+                android:visibility="invisible"
+                android:layout_height="24dp"
+                app:lottie_rawRes="@raw/animation_loading"
+                app:lottie_colorFilter="@color/white"
+                app:lottie_autoPlay="true"
+                app:lottie_loop="true"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+        <TextView
+            app:layout_constraintTop_toBottomOf="@id/btn_login"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            android:id="@+id/progress_bar"
-            android:layout_width="24dp"
-            android:visibility="invisible"
-            android:layout_height="24dp"
-            app:lottie_rawRes="@raw/animation_loading"
-            app:lottie_autoPlay="true"
-            android:layout_marginTop="20dp"
-            app:lottie_loop="true"/>
+            android:text="Hoặc đăng nhập với google"
+            android:fontFamily="@font/inter"
+            android:layout_marginTop="10dp"
+            android:id="@+id/tv_or"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+        <androidx.constraintlayout.widget.ConstraintLayout
+            app:layout_constraintTop_toBottomOf="@id/tv_or"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginEnd="54dp"
+            android:id="@+id/btn_login_with_google"
+            android:background="@drawable/custom_buttom"
+            android:backgroundTint="@color/grey_icon"
+            android:layout_marginStart="54dp"
+            android:layout_marginTop="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="50dp">
+            <ImageView
+                android:src="@drawable/logo_google"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginStart="16dp"
+                android:id="@+id/icon_google"
+                android:layout_width="24dp"
+                android:layout_height="24dp"/>
+            <TextView
+                android:text="Đăng nhập với google"
+                android:id="@+id/tv_btn_google"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+            <ProgressBar
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:indeterminate="true"
+                android:indeterminateTint="@color/grey"
+                android:id="@+id/progress_google"
+                android:visibility="gone"
+                android:layout_width="30dp"
+                android:layout_height="30dp"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
 
 
 

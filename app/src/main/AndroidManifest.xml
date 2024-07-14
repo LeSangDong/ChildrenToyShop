@@ -18,6 +18,33 @@
         android:theme="@style/Theme.ToysShop"
         tools:targetApi="31">
         <activity
+            android:name=".activitys.DoanhThuActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activitys.ChatActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activitys.ViewInfoActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activitys.ViewNotificationActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activitys.DeliveryOrderActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activitys.SeenDetailOrderedActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activitys.HomeAddressActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activitys.MapsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activitys.SendOTPActivity"
+            android:exported="false" />
+        <activity
             android:name=".activitys.WaitConfirmOrderActivity"
             android:exported="false" />
         <activity
@@ -77,6 +104,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyBcUh1d0hkNbLYhei7rKoMn9mqBYJ0eIck" />
     </application>
 
 </manifest>

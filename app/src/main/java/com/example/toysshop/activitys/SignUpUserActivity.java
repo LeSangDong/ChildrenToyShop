@@ -1,14 +1,11 @@
 package com.example.toysshop.activitys;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Toast;
 
-import com.example.toysshop.R;
 import com.example.toysshop.accounts.SharedPrefManager;
 import com.example.toysshop.databinding.ActivitySignUpUserBinding;
 import com.example.toysshop.model.User;
@@ -23,6 +20,11 @@ import java.util.HashMap;
 public class SignUpUserActivity extends BaseActivity {
     private ActivitySignUpUserBinding binding;
     private FirebaseAuth auth;
+    private String role;
+
+
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,12 +32,15 @@ public class SignUpUserActivity extends BaseActivity {
         binding = ActivitySignUpUserBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        iNit();
+
+        auth = FirebaseAuth.getInstance();
         signupAccountUser();
         actionLogin();
 
 
+
     }
+
 
 
 
@@ -48,6 +53,7 @@ public class SignUpUserActivity extends BaseActivity {
 
     private void signupAccountUser() {
         binding.btnSignup.setOnClickListener(v->{
+            binding.tvBtn.setVisibility(View.GONE);
             binding.progressBar.setVisibility(View.VISIBLE);
             String firstName = binding.edtFirstName.getText().toString().trim();
             String lastName = binding.edtLastName.getText().toString().trim();
@@ -56,21 +62,25 @@ public class SignUpUserActivity extends BaseActivity {
 
             if(TextUtils.isEmpty(firstName)){
                 binding.progressBar.setVisibility(View.GONE);
+                binding.tvBtn.setVisibility(View.VISIBLE);
                 binding.edtFirstName.setError("Vui lòng nhập họ");
                 return;
             }
             if(TextUtils.isEmpty(lastName)){
                 binding.progressBar.setVisibility(View.GONE);
+                binding.tvBtn.setVisibility(View.VISIBLE);
                 binding.edtLastName.setError("Vui lòng nhập tên");
                 return;
             }
             if(TextUtils.isEmpty(email)){
                 binding.progressBar.setVisibility(View.GONE);
+                binding.tvBtn.setVisibility(View.VISIBLE);
                 binding.edtEmail.setError("Vui lòng nhập email");
                 return;
             }
             if(TextUtils.isEmpty(password)){
                 binding.progressBar.setVisibility(View.GONE);
+                binding.tvBtn.setVisibility(View.VISIBLE);
                 binding.edtPass.setError("Vui lòng nhập mật khẩu");
                 return;
             }
@@ -88,7 +98,7 @@ public class SignUpUserActivity extends BaseActivity {
                                 hashMap.put("name", firstName + " " + lastName);
                                 userRef.child("info").setValue(hashMap);
 
-                                String role;
+
                                 if (binding.checkSignupAdmin.isChecked()) {
                                     userRef.child("role").setValue("admin");
                                     role = "admin";
@@ -104,6 +114,7 @@ public class SignUpUserActivity extends BaseActivity {
                                 finish();
                             }
                             binding.progressBar.setVisibility(View.GONE);
+                            binding.tvBtn.setVisibility(View.VISIBLE);
                             binding.layoutBottomSignup.setVisibility(View.GONE);
                             binding.layoutBottomSpace.setVisibility(View.VISIBLE);
                             binding.layoutSignupSuccess.setVisibility(View.VISIBLE);
@@ -111,13 +122,15 @@ public class SignUpUserActivity extends BaseActivity {
                                     .append(" ").append(user.getLast_name()));
                         } else {
                             binding.progressBar.setVisibility(View.GONE);
+                            binding.tvBtn.setVisibility(View.VISIBLE);
                             Snackbar.make(binding.layoutBottomSignup, "Đăng ký thất bại, vui lòng thử lại sau!", Toast.LENGTH_SHORT).show();
                         }
                     });
         });
     }
 
-    private void iNit() {
-        auth = FirebaseAuth.getInstance();
-    }
+
+
+
+
 }

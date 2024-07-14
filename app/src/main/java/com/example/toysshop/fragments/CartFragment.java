@@ -24,6 +24,7 @@ import android.widget.Toast;
 
 import com.example.toysshop.R;
 import com.example.toysshop.activitys.ConfirmOrderActivity;
+import com.example.toysshop.activitys.HomeAddressActivity;
 import com.example.toysshop.adapter.CartAdapter;
 import com.example.toysshop.adapter.ToyAdapter;
 import com.example.toysshop.configs.CenterGridItemDecoration;
@@ -107,6 +108,12 @@ public class CartFragment extends Fragment implements OnCartItemChangeListener {
 
         loadCartItems();
 
+        fetchAddress();
+
+        binding.ivNext.setOnClickListener(v->{
+            startActivity(new Intent(requireContext(), HomeAddressActivity.class));
+        });
+
 
 //        binding.scrollview.getViewTreeObserver().addOnScrollChangedListener(new ViewTreeObserver.OnScrollChangedListener() {
 //            @Override
@@ -158,6 +165,37 @@ public class CartFragment extends Fragment implements OnCartItemChangeListener {
         });
 
 
+    }
+
+    private void fetchAddress() {
+        FirebaseUser currentUser = auth.getCurrentUser();
+        if (currentUser != null) {
+            DatabaseReference phoneRef = FirebaseDatabase.getInstance().getReference("phone").child(currentUser.getUid());
+            phoneRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    if (snapshot.exists()) {
+
+                        String address = snapshot.child("address").getValue(String.class);
+                        if (address != null) {
+                            binding.tvAddress.setText(address);
+                        } else {
+                            binding.tvAddress.setText(new StringBuilder().append("Chưa có địa chỉ"));
+                        }
+
+
+                    } else {
+                        binding.tvAddress.setText(new StringBuilder().append("Chưa có địa chỉ"));
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+
+                }
+            });
+
+        }
     }
 
 

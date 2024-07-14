@@ -42,6 +42,8 @@ public interface CartDao {
     @Query("SELECT * FROM cart_tb WHERE userId = :userId AND ischecked = 1")
     List<CartModel> getCheckedCartItems(String userId);
 
+
+
     @Query("DELETE FROM cart_tb WHERE userId = :userId AND isChecked = 1")
     void deleteCheckedCartItems(String userId);
 

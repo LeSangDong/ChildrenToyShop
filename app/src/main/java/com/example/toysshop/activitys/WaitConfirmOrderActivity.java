@@ -5,9 +5,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Toast;
 
-import com.example.toysshop.R;
 import com.example.toysshop.adapter.WaitOrderAdapter;
 import com.example.toysshop.databinding.ActivityWaitConfirmOrderBinding;
 import com.example.toysshop.model.CartModel;
@@ -27,7 +27,7 @@ import java.util.List;
 public class WaitConfirmOrderActivity extends AppCompatActivity {
     private ActivityWaitConfirmOrderBinding binding;
     private FirebaseAuth auth;
-    private List<CartModel> orderList = new ArrayList<>();
+    private List<Order> orderList = new ArrayList<Order>();
     private WaitOrderAdapter waitOrderAdapter;
 
     @Override
@@ -48,17 +48,33 @@ public class WaitConfirmOrderActivity extends AppCompatActivity {
             query.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
-                    orderList.clear();
-                    for (DataSnapshot orderSnapshot : snapshot.getChildren()) {
-                        for (DataSnapshot cartItemSnapshot : orderSnapshot.child("cartItems").getChildren()) {
-                            CartModel cartItem = cartItemSnapshot.getValue(CartModel.class);
-                            if (cartItem != null && cartItem.getUserId().equals(currentUser.getUid())) {
-                                orderList.add(cartItem);
-                            }
-                        }
+                    if(snapshot.exists()){
+                       for(DataSnapshot orderSnapshot : snapshot.getChildren()){
+                           Order order = new Order();
+                           order.setOrderId(orderSnapshot.getKey());
+                           order.setUserId(currentUser.getUid());
+                           order.setStatus(orderSnapshot.child("status").getValue(String.class));
+                           order.setOrderDate(orderSnapshot.child("orderDate").getValue(String.class));
+
+
+                           List<CartModel> cartItems = new ArrayList<>();
+
+                           for(DataSnapshot cartItemSnapshot: orderSnapshot.child("cartItems").getChildren()){
+                               CartModel cartItem = cartItemSnapshot.getValue(CartModel.class);
+                               if(cartItem != null){
+                                   cartItems.add(cartItem);
+                               }
+                           }
+                           order.setCartItems(cartItems);
+                           orderList.add(order);
+
+                       }
+                       waitOrderAdapter = new WaitOrderAdapter(orderList);
+                       binding.recyclerview.setAdapter(waitOrderAdapter);
                     }
-                    waitOrderAdapter = new WaitOrderAdapter(orderList);
-                    binding.recyclerview.setAdapter(waitOrderAdapter);
+                    else{
+                        binding.labelsNoProduct.setVisibility(View.VISIBLE);
+                    }
 
                 }
 

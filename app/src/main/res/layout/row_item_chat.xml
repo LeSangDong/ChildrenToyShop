@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:padding="8dp"
+    android:layout_height="wrap_content">
+       <LinearLayout
+           android:padding="8dp"
+           android:id="@+id/left_chat_layout"
+           android:background="@drawable/custom_edt_chat"
+           android:backgroundTint="#F1F1F1"
+           android:orientation="vertical"
+           android:layout_width="wrap_content"
+           android:layout_marginEnd="80dp"
+           android:layout_height="wrap_content">
+           <TextView
+               android:layout_marginStart="5dp"
+               android:textColor="#6B6868"
+               android:textSize="18sp"
+               android:id="@+id/tv_message_left"
+               android:text="Hello how are you?"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"/>
+           <ImageView
+               android:id="@+id/image_message_left"
+               android:visibility="gone"
+               android:layout_width="200dp"
+               android:layout_height="200dp"
+               android:scaleType="centerCrop"/>
+           <TextView
+               android:layout_gravity="end"
+               android:textStyle="italic"
+               android:textSize="10sp"
+               android:id="@+id/tv_time_left"
+               android:text="00:00, 23/05/2024"
+               android:layout_marginBottom="5dp"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"/>
+
+       </LinearLayout>
+    <ImageView
+        android:id="@+id/icon_favorite"
+        android:src="@drawable/baseline_favorite_grey_24"
+        android:layout_width="16dp"
+        android:layout_alignEnd="@id/left_chat_layout"
+        android:layout_alignBottom="@id/left_chat_layout"
+        android:layout_height="16dp"/>
+
+
+
+    <LinearLayout
+        android:id="@+id/right_chat_layout"
+        android:padding="8dp"
+        android:layout_alignParentEnd="true"
+        android:background="@drawable/custom_edt_chat"
+        android:backgroundTint="#D1F8F7"
+        android:orientation="vertical"
+        android:layout_width="wrap_content"
+        android:layout_marginStart="80dp"
+        android:layout_height="wrap_content">
+        <TextView
+            android:textColor="#6B6868"
+            android:textSize="18sp"
+            android:id="@+id/tv_message_right"
+            android:text="I am fine"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+        <ImageView
+            android:id="@+id/image_message_right"
+            android:visibility="gone"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:scaleType="centerCrop"/>
+        <TextView
+            android:layout_gravity="end"
+            android:textStyle="italic"
+            android:textSize="10sp"
+            android:id="@+id/tv_time_right"
+            android:text="00:00, 23/05/2024"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+    </LinearLayout>
+    <TextView
+        android:layout_below="@id/right_chat_layout"
+        android:text="Đã gửi"
+        android:textColor="@color/grey"
+        android:textSize="12sp"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="8dp"
+        android:id="@+id/status_message"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+</RelativeLayout>

@@ -136,6 +136,7 @@ public class DetailProductActivity extends AppCompatActivity {
             binding.tvPercent.setVisibility(View.GONE);
             binding.tvOldPrice.setVisibility(View.GONE);
         }
+        binding.tvSizeTable.setText(new StringBuilder().append(toy.getSize_product()));
         binding.tvTrademarkTable.setText(new StringBuilder().append(toy.getTrademark()));
         binding.tvColorTable.setText(new StringBuilder().append(toy.getColor_product()));
         //fetchAllProduc
@@ -156,9 +157,7 @@ public class DetailProductActivity extends AppCompatActivity {
 
 
         });
-        binding.btnBuyNow.setOnClickListener(v->{
-            startActivity(new Intent(DetailProductActivity.this, ConfirmOrderActivity.class));
-        });
+
 
 
 

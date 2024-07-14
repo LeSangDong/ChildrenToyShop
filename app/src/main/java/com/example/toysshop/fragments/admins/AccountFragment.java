@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.toysshop.R;
+import com.example.toysshop.activitys.DoanhThuActivity;
 import com.example.toysshop.activitys.GetStartedActivity;
 import com.example.toysshop.activitys.MainAdminActivity;
 import com.example.toysshop.databinding.FragmentAccountBinding;
@@ -38,11 +39,15 @@ public class AccountFragment extends Fragment {
         //init
         initialized();
 
-        binding.tvLogout.setOnClickListener(v->{
+        binding.btnLogout.setOnClickListener(v->{
             auth.signOut();
-            startActivity(new Intent(requireActivity(), GetStartedActivity.class));
-            requireActivity().finish();
+            startActivity(new Intent(requireContext(), GetStartedActivity.class));
+
         });
+        binding.itemDoanhthu.setOnClickListener(v->{
+            startActivity(new Intent(requireContext(), DoanhThuActivity.class));
+        });
+
     }
 
     private void initialized() {

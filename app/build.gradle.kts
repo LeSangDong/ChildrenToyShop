@@ -89,6 +89,18 @@ dependencies {
     //gson
     implementation ("com.google.code.gson:gson:2.11.0")
 
+    //signin google
+    implementation ("com.google.android.gms:play-services-auth:21.2.0")
+
+    //code picker
+    implementation ("com.hbb20:ccp:2.5.0")
+    //pinview
+    implementation ("com.github.mukeshsolanki.android-otpview-pinview:otpview:3.1.0")
+
+    //google map
+    implementation ("com.google.android.gms:play-services-maps:19.0.0")
+    implementation ("com.google.android.gms:play-services-location:21.3.0")
+
 
 
 }

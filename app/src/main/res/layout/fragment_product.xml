@@ -37,14 +37,33 @@
         android:id="@+id/searchView"
         android:layout_width="280dp"
         android:layout_height="40dp"/>
-    <ImageView
+    <FrameLayout
+        android:layout_marginEnd="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/iv_logoshop"
-        android:src="@drawable/img_4"
-        android:layout_marginTop="5dp"
-        android:layout_marginEnd="16dp"
-        android:layout_width="34dp"
-        android:layout_height="34dp"/>
+        android:layout_width="35dp"
+        android:layout_height="35dp">
+        <ImageView
+            android:src="@drawable/baseline_notifications_24"
+            android:layout_marginTop="5dp"
+            android:id="@+id/icon_notification"
+            android:layout_marginEnd="16dp"
+            android:layout_width="34dp"
+            android:layout_height="34dp"/>
+        <TextView
+            android:text="1"
+            android:layout_gravity="end"
+            android:background="@drawable/custom_notification"
+            android:textColor="@color/white"
+            android:textAlignment="center"
+            android:id="@+id/tv_notification"
+            android:textSize="14sp"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            tools:ignore="RtlCompat" />
+
+    </FrameLayout>
+
 
     <TextView
         app:layout_constraintTop_toBottomOf="@id/searchView"
@@ -65,6 +84,19 @@
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
         android:id="@+id/recyclerview"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_height="0dp"/>
+    <TextView
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:text="Chưa có sản phẩm nào"
+        android:fontFamily="@font/inter"
+        android:textColor="@color/grey"
+        android:id="@+id/tv_no_product"
+        android:visibility="gone"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         app:layout_constraintEnd_toEndOf="parent"

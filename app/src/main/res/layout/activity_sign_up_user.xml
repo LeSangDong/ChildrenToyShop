@@ -3,26 +3,40 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:background="@color/white"
+    android:background="@color/green"
     android:layout_height="match_parent"
     tools:context=".activitys.SignUpUserActivity">
-    <ImageView
-        android:id="@+id/imageView"
+
+    <com.airbnb.lottie.LottieAnimationView
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:src="@drawable/banner4"
-        android:layout_width="match_parent"
-        android:layout_height="600dp"/>
+        android:id="@+id/animationView"
+        android:layout_width="300dp"
+        android:layout_height="250dp"
+        app:lottie_rawRes="@raw/lottie_login"
+        app:lottie_autoPlay="true"
+        android:layout_marginTop="30dp"
+        app:lottie_loop="true"/>
+    <ImageView
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:src="@drawable/baseline_back_new_24"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="40dp"
+        android:id="@+id/btn_back"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_marginBottom="20dp"
+
         android:id="@+id/layout_bottom_signup"
         android:background="@drawable/custom_layout_signup"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_width="match_parent"
-        android:layout_height="415dp">
+        android:layout_height="wrap_content">
         <TextView
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -36,6 +50,7 @@
             android:layout_marginTop="20dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
+
        <EditText
            app:layout_constraintTop_toBottomOf="@id/tv_title"
            app:layout_constraintStart_toStartOf="parent"
@@ -96,49 +111,79 @@
                 android:layout_height="45dp"/>
 
         </com.google.android.material.textfield.TextInputLayout>
-        <androidx.appcompat.widget.AppCompatButton
+        <androidx.constraintlayout.widget.ConstraintLayout
             app:layout_constraintTop_toBottomOf="@id/textfield"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginTop="20dp"
-            android:background="@drawable/custom_buttom"
             android:layout_marginEnd="54dp"
+            android:background="@drawable/custom_buttom"
+            android:backgroundTint="@color/box_yellow"
             android:layout_marginStart="54dp"
-            android:text="Đăng ký"
+            android:layout_marginTop="20dp"
             android:id="@+id/btn_signup"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
-        <ProgressBar
+            android:layout_height="50dp">
+            <TextView
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:text="Đăng ký"
+                android:id="@+id/tv_btn"
+                android:textSize="18sp"
+                android:textColor="@color/black"
+                android:textStyle="bold"
+                android:fontFamily="@font/inter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+            <com.airbnb.lottie.LottieAnimationView
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:id="@+id/progress_bar"
+                android:layout_width="24dp"
+                android:visibility="invisible"
+                android:layout_height="24dp"
+                app:lottie_rawRes="@raw/animation_loading"
+                app:lottie_colorFilter="@color/white"
+                app:lottie_autoPlay="true"
+                app:lottie_loop="true"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
             app:layout_constraintTop_toBottomOf="@id/btn_signup"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            android:indeterminateTint="@color/sky"
-            android:indeterminate="true"
-            android:visibility="invisible"
-            android:layout_marginTop="10dp"
-            android:id="@+id/progress_bar"
-            android:layout_width="20dp"
-            android:layout_height="20dp"/>
-        <TextView
-            app:layout_constraintTop_toBottomOf="@id/progress_bar"
-            app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginStart="54dp"
-            android:fontFamily="@font/inter"
-            android:layout_marginTop="10dp"
-            android:id="@+id/tv_title2"
-            android:text="Đăng ký với vai trò là người bán?"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-
-        <CheckBox
-            android:backgroundTint="@color/sky"
-            android:id="@+id/check_signup_admin"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="4dp"
-            android:layout_marginBottom="20dp"
+            android:id="@+id/layout_seller_label"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toEndOf="@id/tv_title2" />
+            android:layout_marginBottom="60dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:id="@+id/labelseller"
+                android:layout_marginEnd="10dp"
+                android:text="Đăng ký với vai trò người bán?"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+            <CheckBox
+                android:backgroundTint="@color/sky"
+                android:id="@+id/check_signup_admin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@id/labelseller" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

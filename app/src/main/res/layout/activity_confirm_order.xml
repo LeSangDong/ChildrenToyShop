@@ -58,7 +58,7 @@
                     android:layout_height="24dp"
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="20dp"
-                    android:src="@drawable/baseline_location_on_24"
+                    android:src="@drawable/baseline_person_24"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -84,7 +84,6 @@
                     android:ellipsize="end"
                     android:fontFamily="@font/inter"
                     android:maxLines="1"
-                    android:text="Ap 13, xa Long Huu, thi xa Duyen Hai, tinh Tra Vinh"
                     android:textColor="@color/black"
                     android:textStyle="bold"
                     android:textSize="16sp"
@@ -104,6 +103,7 @@
 
                 <ImageView
                     android:id="@+id/iv_phone"
+                    android:visibility="gone"
                     android:layout_width="24dp"
                     android:layout_height="24dp"
                     android:layout_marginStart="16dp"
@@ -115,10 +115,19 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
-                    android:text="0987654321"
+                    android:id="@+id/tv_phone"
                     android:textColor="@color/grey"
                     app:layout_constraintStart_toEndOf="@id/iv_phone"
                     app:layout_constraintTop_toBottomOf="@id/tv_address" />
+                <ImageView
+                    android:layout_marginStart="10dp"
+                    app:layout_constraintStart_toEndOf="@id/tv_phone"
+                    app:layout_constraintTop_toBottomOf="@id/tv_address"
+                    android:src="@drawable/baseline_check_circle_outline_24"
+                    android:layout_width="20dp"
+                    android:id="@+id/icon_tick_success_phone"
+                    android:visibility="gone"
+                    android:layout_height="20dp"/>
 
 
             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -160,7 +169,7 @@
                 <TextView
                     android:textStyle="italic"
                     android:id="@+id/tv1_label"
-                    android:text="Được giao bởi ShopShipNow"
+                    android:text="Được giao bởi ShipNow"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     android:layout_marginTop="10dp"

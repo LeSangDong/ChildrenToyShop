@@ -5,16 +5,23 @@ public class User {
     private String last_name;
     private String email;
     private String password;
+    private String phone;
+    private String address;
 
     private Boolean rollAdmin = false;
 
+    private String avatarUrl;
+
     public User() {
     }
+
+
 
     public User(String email, String password) {
         this.email = email;
         this.password = password;
     }
+
 
     public User(String first_name, String last_name, String email, String password) {
         this.first_name = first_name;
@@ -22,6 +29,10 @@ public class User {
         this.email = email;
         this.password = password;
     }
+
+
+
+
 
     public String getFirst_name() {
         return first_name;
@@ -61,5 +72,29 @@ public class User {
 
     public void setRollAdmin(Boolean rollAdmin) {
         this.rollAdmin = rollAdmin;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getAvatarUrl() {
+        return avatarUrl;
+    }
+
+    public void setAvatarUrl(String avatarUrl) {
+        this.avatarUrl = avatarUrl;
     }
 }

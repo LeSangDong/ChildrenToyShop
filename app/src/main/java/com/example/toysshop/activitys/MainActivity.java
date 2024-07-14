@@ -18,7 +18,9 @@ import com.example.toysshop.R;
 import com.example.toysshop.databinding.ActivityMainBinding;
 import com.example.toysshop.fragments.CartFragment;
 import com.example.toysshop.untils.UpdateCartEvent;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.material.navigation.NavigationBarView;
+import com.google.firebase.auth.FirebaseAuth;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -31,6 +33,7 @@ public class MainActivity extends AppCompatActivity implements NavigationBarView
 
 
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,6 +41,8 @@ public class MainActivity extends AppCompatActivity implements NavigationBarView
         setContentView(binding.getRoot());
         //set background statusbar
         getWindow().setStatusBarColor(ContextCompat.getColor(this,R.color.white));
+
+
 
         navController = Navigation.findNavController(this,R.id.fragment_container_view);
         NavigationUI.setupWithNavController(binding.bottomNavigationview,navController);

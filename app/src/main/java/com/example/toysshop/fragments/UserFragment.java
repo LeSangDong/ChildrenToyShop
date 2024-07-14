@@ -10,23 +10,30 @@ import androidx.navigation.NavController;
 import androidx.navigation.NavHostController;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.example.toysshop.R;
+import com.example.toysshop.activitys.DeliveryOrderActivity;
 import com.example.toysshop.activitys.GetStartedActivity;
 import com.example.toysshop.activitys.LoginActivity;
 import com.example.toysshop.activitys.MainActivity;
 import com.example.toysshop.activitys.SettingActivity;
+import com.example.toysshop.activitys.ViewInfoActivity;
+import com.example.toysshop.activitys.ViewNotificationActivity;
 import com.example.toysshop.activitys.WaitConfirmOrderActivity;
 import com.example.toysshop.adapter.ToyAdapter;
 import com.example.toysshop.configs.CenterGridItemDecoration;
 import com.example.toysshop.database.CartDao;
 import com.example.toysshop.database.CartDatabase;
 import com.example.toysshop.databinding.FragmentUserBinding;
+import com.example.toysshop.model.Order;
 import com.example.toysshop.model.Toy;
 import com.example.toysshop.untils.UpdateCartEvent;
 import com.google.android.material.appbar.AppBarLayout;
@@ -47,7 +54,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class UserFragment extends Fragment {
+public class UserFragment extends Fragment{
 
     private FragmentUserBinding binding;
     private FirebaseAuth auth;
@@ -55,6 +62,10 @@ public class UserFragment extends Fragment {
     private NavController navController;
     private ToyAdapter toyAdapter;
     private List<Toy> mListToy;
+    private List<Order> mListOrderProcess;
+    private List<Order> mListOrderDelivery;
+
+
 
 
 
@@ -93,6 +104,7 @@ public class UserFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         iNit(view);
+
         setCollapsingToolbarTitle();
         CartDatabase cartDatabase = CartDatabase.getInstance(getContext());
         cartDao = cartDatabase.cartDao();
@@ -107,12 +119,183 @@ public class UserFragment extends Fragment {
             navController.navigate(R.id.cartFragment);
 
         });
-        binding.ivCart1.setOnClickListener(v->{
+        binding.screenWaitConfirm.setOnClickListener(v->{
             startActivity(new Intent(requireContext(), WaitConfirmOrderActivity.class));
+        });
+        binding.screenDelivery.setOnClickListener(v->{
+            startActivity(new Intent(requireContext(), DeliveryOrderActivity.class));
+        });
+        binding.iconNotification.setOnClickListener(v->{
+            startActivity(new Intent(requireContext(), ViewNotificationActivity.class));
+
         });
 
         //fetch all product
         fetchAllProduct();
+
+        //fetch order process
+        fetchOrderProcess();
+        //fetch order delivery
+        fetchOrderDelivery();
+
+        //fetchavatar
+        fetchAvatar();
+
+        //fetchAllNotification
+        fetchNotification();
+
+
+
+
+
+    }
+
+
+
+    private void fetchNotification() {
+        FirebaseUser currentUser = auth.getCurrentUser();
+        if (currentUser != null) {
+            DatabaseReference ordersRef = FirebaseDatabase.getInstance().getReference("Orders").child(currentUser.getUid());
+            ordersRef.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    int notificationCount = 0;
+                    for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                        Order order = dataSnapshot.getValue(Order.class);
+                        if (order != null && order.getTime_deny() != null) {
+                            notificationCount++;
+                        }
+                    }
+                    if (notificationCount > 0) {
+                        binding.tvNotification.setText(String.valueOf(notificationCount));
+                        binding.tvNotification.setVisibility(View.VISIBLE);
+                    } else {
+                        binding.tvNotification.setVisibility(View.GONE);
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+                    Log.e("UserFragment", "fetchNotifications: onCancelled", error.toException());
+                }
+            });
+        } else {
+            Toast.makeText(requireContext(), "Bạn chưa đăng nhập", Toast.LENGTH_SHORT).show();
+        }
+
+    }
+
+    private void fetchOrderDelivery() {
+        mListOrderDelivery = new ArrayList<>();
+        FirebaseUser currentUser = auth.getCurrentUser();
+        if(currentUser != null){
+            DatabaseReference orderProcessRef = FirebaseDatabase.getInstance().getReference("Orders").child(currentUser.getUid());
+            orderProcessRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    mListOrderDelivery.clear();
+                    for(DataSnapshot dataSnapshot: snapshot.getChildren()){
+                        Order order = dataSnapshot.getValue(Order.class);
+                        if (order != null && order.getStatus().equals("đang vận chuyển")) {
+                            mListOrderDelivery.add(order);
+                        }
+
+                    }
+                    displayOrderCount();
+
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+                    Log.e("UserFragment", "fetchOrderProcess: onCancelled", error.toException());
+
+                }
+            });
+
+        }
+        else{
+            Toast.makeText(requireContext(), "Bạn chưa đăng nhập", Toast.LENGTH_SHORT).show();
+        }
+
+
+    }
+
+    private void fetchAvatar() {
+        FirebaseUser currentUser = auth.getCurrentUser();
+        if (currentUser != null) {
+            String userId = currentUser.getUid();
+            DatabaseReference userRef = FirebaseDatabase.getInstance().getReference("account").child(userId).child("info");
+
+            // Load avatar URL and user name
+            userRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    if (snapshot.exists()) {
+                        String avatarUrl = snapshot.child("avatarUrl").getValue(String.class);
+
+                        if (avatarUrl != null && !avatarUrl.isEmpty()) {
+                            Glide.with(requireContext()).load(avatarUrl).into(binding.imgAvatar);
+                        }
+
+
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+                    Toast.makeText(requireContext(), "Failed to load user info", Toast.LENGTH_SHORT).show();
+                }
+            });
+        }
+    }
+
+    private void fetchOrderProcess() {
+        mListOrderProcess = new ArrayList<>();
+        FirebaseUser currentUser = auth.getCurrentUser();
+        if(currentUser != null){
+            DatabaseReference orderProcessRef = FirebaseDatabase.getInstance().getReference("Orders").child(currentUser.getUid());
+            orderProcessRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    mListOrderProcess.clear();
+                    for(DataSnapshot dataSnapshot: snapshot.getChildren()){
+                            Order order = dataSnapshot.getValue(Order.class);
+                            if (order != null && order.getStatus().equals("Chờ xác nhận")) {
+                                mListOrderProcess.add(order);
+                            }
+
+                    }
+                    displayOrderCount();
+
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+                    Log.e("UserFragment", "fetchOrderProcess: onCancelled", error.toException());
+
+                }
+            });
+
+        }
+        else{
+            Toast.makeText(requireContext(), "Bạn chưa đăng nhập", Toast.LENGTH_SHORT).show();
+        }
+
+    }
+
+    private void displayOrderCount() {
+        int orderCount = mListOrderProcess.size();
+        int orderCountDelivery = mListOrderDelivery.size();
+       if(orderCount > 0){
+           binding.tvNotificationWait.setVisibility(View.VISIBLE);
+           binding.tvNotificationWait.setText(String.valueOf(orderCount));
+       }
+
+        if(orderCountDelivery > 0){
+            binding.tvNotificationDelivery.setText(String.valueOf(orderCountDelivery));
+            binding.tvNotificationDelivery.setVisibility(View.VISIBLE);
+        }
+
 
     }
 
@@ -157,12 +340,14 @@ public class UserFragment extends Fragment {
                     toyAdapter = new ToyAdapter(mListToy);
                     binding.recyclerview.setAdapter(toyAdapter);
 
+
                 }
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
                 Log.e("Log_All_Toy", error.getMessage());
+
 
 
             }
@@ -206,4 +391,6 @@ public class UserFragment extends Fragment {
                 requireContext(), 2));
 
     }
+
+
 }
