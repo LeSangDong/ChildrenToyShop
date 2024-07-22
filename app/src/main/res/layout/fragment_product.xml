@@ -25,48 +25,65 @@
         app:layout_constraintBottom_toBottomOf="@id/iv_logoshop"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
-    <androidx.appcompat.widget.SearchView
+    <androidx.constraintlayout.widget.ConstraintLayout
         app:layout_constraintTop_toBottomOf="@id/iv_logoshop"
         app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="10dp"
-        style="@style/Widget.AppCompat.SearchView"
-        app:defaultQueryHint="Tìm kiếm sản phẩm..."
-        app:iconifiedByDefault="false"
-        android:background="@drawable/custom_search_view"
-        android:id="@+id/searchView"
-        android:layout_width="280dp"
-        android:layout_height="40dp"/>
-    <FrameLayout
-        android:layout_marginEnd="16dp"
+        android:id="@+id/layout_search"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/iv_logoshop"
-        android:layout_width="35dp"
-        android:layout_height="35dp">
-        <ImageView
-            android:src="@drawable/baseline_notifications_24"
-            android:layout_marginTop="5dp"
-            android:id="@+id/icon_notification"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <EditText
+            android:hint="Tìm kiếm sản phẩm..."
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
+            android:maxLines="1"
+            android:textSize="18sp"
+            android:textColor="@color/black"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="20dp"
+            app:layout_constraintEnd_toStartOf="@id/frame_bell"
+            android:background="@drawable/custom_search_view"
+            android:id="@+id/searchView"
+            android:layout_width="0dp"
+            android:layout_height="40dp"/>
+        <FrameLayout
             android:layout_marginEnd="16dp"
-            android:layout_width="34dp"
-            android:layout_height="34dp"/>
-        <TextView
-            android:text="1"
-            android:layout_gravity="end"
-            android:background="@drawable/custom_notification"
-            android:textColor="@color/white"
-            android:textAlignment="center"
-            android:id="@+id/tv_notification"
-            android:textSize="14sp"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            tools:ignore="RtlCompat" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:id="@+id/frame_bell"
+            android:layout_width="35dp"
+            android:layout_height="35dp">
+            <ImageView
+                android:src="@drawable/baseline_notifications_24"
+                android:layout_marginTop="5dp"
+                android:id="@+id/icon_notification"
+                android:layout_marginEnd="16dp"
+                android:layout_width="34dp"
+                android:layout_height="34dp"/>
+            <TextView
+                android:text="1"
+                android:layout_gravity="end"
+                android:background="@drawable/custom_notification"
+                android:textColor="@color/white"
+                android:textAlignment="center"
+                android:id="@+id/tv_notification"
+                android:textSize="14sp"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                tools:ignore="RtlCompat" />
 
-    </FrameLayout>
+        </FrameLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
 
 
     <TextView
-        app:layout_constraintTop_toBottomOf="@id/searchView"
+        app:layout_constraintTop_toBottomOf="@id/layout_search"
         app:layout_constraintStart_toStartOf="parent"
         android:layout_marginStart="16dp"
         android:text="Sản phẩm"
@@ -105,7 +122,7 @@
         android:id="@+id/btn_add"
         app:layout_constraintBottom_toBottomOf="parent"
         android:layout_marginEnd="16dp"
-        android:layout_marginBottom="35dp"
+        android:layout_marginBottom="20dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

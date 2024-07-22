@@ -47,7 +47,18 @@ public class ToyAdapter extends RecyclerView.Adapter<ToyAdapter.ViewHolder> {
         holder.binding.tvNameToy.setText(toy.getTitle());
         DecimalFormat format = new DecimalFormat("#,###");
         holder.binding.tvPrice.setText(new StringBuilder().append(format.format(toy.getPrice())).append("đ"));
-        holder.binding.ratingbar.setRating((float) toy.getStar());
+        if(toy.getCount_feedback()>0){
+            holder.binding.tvCountRating.setVisibility(View.VISIBLE);
+            holder.binding.ratingbar.setVisibility(View.VISIBLE);
+            holder.binding.ratingbar.setRating((float) toy.getStar());
+            holder.binding.tvCountRating.setText(new StringBuilder().append("(").append(toy.getCount_feedback()).append(")"));
+        }
+        else{
+            holder.binding.tvCountRating.setVisibility(View.GONE);
+            holder.binding.ratingbar.setVisibility(View.GONE);
+        }
+
+
         if(toy.getPriceDiscount() >0){
             holder.binding.tvPercent.setText(new StringBuilder("-").append(toy.getPriceDiscount()).append("%"));
         }

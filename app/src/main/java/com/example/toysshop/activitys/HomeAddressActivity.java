@@ -59,7 +59,7 @@ public class HomeAddressActivity extends AppCompatActivity {
                    if(task.isSuccessful()){
                        binding.progress2.setVisibility(View.GONE);
                        binding.tvBtn2.setVisibility(View.VISIBLE);
-                     startActivity(new Intent(this, MainActivity.class));
+                   finish();
 
                    }
                    else{

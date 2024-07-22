@@ -42,6 +42,9 @@ public class SettingActivity extends AppCompatActivity {
         binding.itemInfoPerson.setOnClickListener(v->{
             startActivity(new Intent(this,ViewInfoActivity.class));
         });
+        binding.itemReplacePass.setOnClickListener(v->{
+            startActivity(new Intent(this,ReplacePasswordActivity.class));
+        });
     }
 
     private void signOut() {

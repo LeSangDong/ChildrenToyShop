@@ -24,6 +24,7 @@ import com.example.toysshop.R;
 import com.example.toysshop.activitys.AddressActivity;
 import com.example.toysshop.activitys.HomeAddressActivity;
 import com.example.toysshop.activitys.MapsActivity;
+import com.example.toysshop.activitys.SearchActivity;
 import com.example.toysshop.adapter.BannerViewpagerAdapter;
 import com.example.toysshop.adapter.CategoryAdapter;
 import com.example.toysshop.adapter.ToyAdapter;
@@ -142,6 +143,9 @@ public class HomeFragment extends Fragment {
 
             navController.navigate(R.id.cartFragment);
 
+        });
+        binding.searchView.setOnClickListener(v->{
+            startActivity(new Intent(requireContext(), SearchActivity.class));
         });
 
     }

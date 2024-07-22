@@ -102,16 +102,20 @@
             android:id="@+id/tv_address"
             android:textColor="@color/grey"
             android:textStyle="bold"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
+            android:layout_marginBottom="5dp"
+            android:layout_marginEnd="5dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:maxLines="3"
             android:layout_height="wrap_content"/>
-        <com.google.android.material.divider.MaterialDivider
-            app:layout_constraintTop_toBottomOf="@id/label_address"
+        <View
+            app:layout_constraintTop_toBottomOf="@id/tv_address"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginTop="5dp"
             android:id="@+id/divider"
-            app:dividerColor="#F4511E"
-            android:layout_width="match_parent"
+            android:background="#F4511E"
+            android:layout_width="0dp"
             android:layout_height="2dp"/>
         <TextView
             app:layout_constraintTop_toBottomOf="@id/divider"

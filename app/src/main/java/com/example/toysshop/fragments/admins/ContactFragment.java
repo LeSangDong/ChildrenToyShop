@@ -5,9 +5,13 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import android.os.Handler;
+import android.os.Looper;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -37,6 +41,7 @@ import java.util.Set;
 public class ContactFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener {
 
    private FragmentContactBinding binding;
+   private NavController navController;
    private UserChatAdapter userChatAdapter;
     Set<String> userIds = new HashSet<>();
     List<UserChat> userList = new ArrayList<>();
@@ -56,6 +61,8 @@ public class ContactFragment extends Fragment implements SwipeRefreshLayout.OnRe
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        iNit(view);
+
         binding.recyclerview.setHasFixedSize(true);
         binding.recyclerview.setLayoutManager(new LinearLayoutManager(requireContext()));
 
@@ -65,10 +72,18 @@ public class ContactFragment extends Fragment implements SwipeRefreshLayout.OnRe
 
         loadUserChat();
 
+        binding.btnBack.setOnClickListener(v->{
+            navController.popBackStack();
+        });
 
 
 
 
+
+    }
+
+    private void iNit(View view) {
+        navController = Navigation.findNavController(view);
     }
 
     private void loadUserChat() {
@@ -174,6 +189,8 @@ public class ContactFragment extends Fragment implements SwipeRefreshLayout.OnRe
 
     @Override
     public void onRefresh() {
+
+
         loadUserChat();
     }
 }

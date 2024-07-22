@@ -40,46 +40,58 @@
             app:layout_constraintBottom_toBottomOf="@id/iv_logoshop"
             app:layout_constraintStart_toEndOf="@id/iv_logoshop"
             app:layout_constraintTop_toTopOf="parent" />
-
-        <androidx.appcompat.widget.SearchView
-            android:id="@+id/searchView"
-            style="@style/Widget.AppCompat.SearchView"
-            android:layout_width="270dp"
-            android:layout_height="40dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="20dp"
-            android:background="@drawable/custom_search_view"
-            android:padding="3dp"
-            app:defaultQueryHint="Tìm kiếm sản phẩm..."
-            app:iconifiedByDefault="false"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/layout_search"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/iv_logoshop" />
+            app:layout_constraintTop_toBottomOf="@id/iv_logoshop"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/searchView"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/iv_cart"
+                style="@style/Widget.AppCompat.SearchView"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="20dp"
+                android:background="@drawable/custom_search_view"
+                android:padding="10dp"
+                android:hint="Tìm kiếm sản phẩm..."
+                />
+            <ImageView
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:src="@drawable/img_4"
+                android:layout_marginEnd="20dp"
+                android:id="@+id/iv_cart"
+                android:layout_width="34dp"
+                android:layout_height="34dp"/>
+            <TextView
+                app:layout_constraintTop_toTopOf="@id/iv_cart"
+                app:layout_constraintStart_toEndOf="@id/iv_cart"
+                android:text="2"
+                android:id="@+id/tv_notification"
+                android:textColor="@color/white"
+                android:background="@drawable/custom_notification"
+                android:gravity="center"
+                android:textSize="13sp"
+                android:textStyle="bold"
+                android:layout_marginEnd="16dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toTopOf="@id/iv_cart"
+                android:layout_width="20dp"
+                android:layout_height="20dp"/>
 
-        <ImageView
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="30dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            android:src="@drawable/img_4"
-            android:layout_marginEnd="20dp"
-            android:id="@+id/iv_cart"
-            android:layout_width="34dp"
-            android:layout_height="34dp"/>
-        <TextView
-            app:layout_constraintTop_toTopOf="@id/iv_cart"
-            app:layout_constraintStart_toEndOf="@id/iv_cart"
-            android:text="2"
-            android:id="@+id/tv_notification"
-            android:textColor="@color/white"
-            android:background="@drawable/custom_notification"
-            android:gravity="center"
-            android:textSize="14sp"
-            android:layout_marginEnd="16dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintBottom_toTopOf="@id/iv_cart"
-            android:layout_width="25dp"
-            android:layout_height="25dp"/>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+
+
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

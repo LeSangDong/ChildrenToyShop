@@ -112,6 +112,9 @@ public class LoginActivity extends BaseActivity {
         binding.btnBack.setOnClickListener(v -> {
             finish();
         });
+        binding.tvForgotpass.setOnClickListener(v->{
+            startActivity(new Intent(this, ForgotPasswordActivity.class));
+        });
     }
 
     private void loginAccount() {

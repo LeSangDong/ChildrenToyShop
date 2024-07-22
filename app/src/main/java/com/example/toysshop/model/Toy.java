@@ -15,6 +15,7 @@ public class Toy implements Serializable {
     private double price;
     private int priceDiscount;
     private double star;
+    private int count_feedback;
     private String title;
     private String trademark;
     private boolean isDiscount;
@@ -141,5 +142,13 @@ public class Toy implements Serializable {
 
     public void setLike(boolean like) {
         isLike = like;
+    }
+
+    public int getCount_feedback() {
+        return count_feedback;
+    }
+
+    public void setCount_feedback(int count_feedback) {
+        this.count_feedback = count_feedback;
     }
 }

@@ -19,18 +19,103 @@
             app:layout_constraintEnd_toEndOf="parent"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
-            <TextView
+
+           <androidx.constraintlayout.widget.ConstraintLayout
+               app:layout_constraintTop_toTopOf="parent"
+               app:layout_constraintStart_toStartOf="parent"
+               android:layout_marginTop="5dp"
+               android:id="@+id/layout_status_wait"
+               android:layout_marginStart="16dp"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content">
+               <TextView
+                   app:layout_constraintTop_toTopOf="parent"
+                   app:layout_constraintStart_toStartOf="parent"
+                   android:text="Chờ xác nhận"
+                   android:id="@+id/tv_status"
+                   android:textStyle="bold"
+                   android:textSize="16sp"
+                   android:textColor="@color/grey"
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"/>
+               <View
+                 app:layout_constraintTop_toTopOf="parent"
+                   app:layout_constraintBottom_toBottomOf="parent"
+                   app:layout_constraintStart_toStartOf="parent"
+                   android:background="@color/grey_icon"
+                   android:layout_marginTop="20dp"
+                   android:layout_width="100dp"
+                   android:id="@+id/view1"
+                   android:layout_height="4dp"/>
+               <View
+                   android:id="@+id/point_1"
+                   app:layout_constraintTop_toTopOf="parent"
+                   app:layout_constraintBottom_toBottomOf="parent"
+                   android:layout_marginTop="20dp"
+                   android:background="@drawable/img_17"
+                   app:layout_constraintStart_toEndOf="@id/view1"
+                   android:layout_width="20dp"
+                   android:layout_height="20dp"/>
+               <View
+                   android:id="@+id/point1_none"
+                   app:layout_constraintTop_toTopOf="parent"
+                   app:layout_constraintBottom_toBottomOf="parent"
+                   android:layout_marginTop="20dp"
+                   android:background="@drawable/img_18"
+                   app:layout_constraintStart_toEndOf="@id/view1"
+                   android:layout_width="13dp"
+                   android:layout_height="13dp"/>
+
+           </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintStart_toEndOf="@id/layout_status_wait"
                 android:layout_marginTop="5dp"
-                android:layout_marginStart="16dp"
-                android:text="Chờ xác nhận"
-                android:id="@+id/tv_status"
-                android:textStyle="bold"
-                android:textSize="16sp"
-                android:textColor="@color/grey"
+                android:id="@+id/layout_status_delivery"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content">
+                <TextView
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    android:text="Đang Vận chuyển"
+                    android:id="@+id/tv_status_delivery"
+                    android:textStyle="bold"
+                    android:textSize="16sp"
+                    android:textColor="@color/grey"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+                <View
+                  app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    android:background="@color/grey_icon"
+                    android:layout_marginTop="20dp"
+                    android:id="@+id/view3"
+                    android:layout_width="125dp"
+                    android:layout_height="4dp"/>
+                <View
+                    android:id="@+id/point_2"
+                   app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:layout_marginTop="20dp"
+                    android:background="@drawable/img_17"
+                    app:layout_constraintStart_toEndOf="@id/view3"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"/>
+                <View
+                    android:id="@+id/point2_none"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:layout_marginTop="20dp"
+                    android:background="@drawable/img_18"
+                    app:layout_constraintStart_toEndOf="@id/view3"
+                    android:layout_width="13dp"
+                    android:layout_height="13dp"/>
+
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
         <View
@@ -87,6 +172,7 @@
                 app:layout_constraintStart_toEndOf="@id/cardView"
                 android:layout_marginStart="16dp"
                 android:text="So luong: 1"
+                android:textSize="11sp"
                 android:layout_marginTop="5dp"
                 android:id="@+id/tv_quantity"
                 android:textColor="@color/grey"
@@ -97,21 +183,26 @@
                 app:layout_constraintStart_toEndOf="@id/tv_quantity"
                 android:layout_marginStart="5dp"
                 android:text="| 120 000d"
+                android:textSize="11sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginEnd="5dp"
                 android:layout_marginTop="5dp"
                 android:id="@+id/tv_totalprice"
                 android:textColor="@color/grey"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"/>
             <TextView
                 app:layout_constraintTop_toBottomOf="@id/cardView"
                 app:layout_constraintStart_toStartOf="parent"
                 android:text="Ngay dat: 12/08/2024"
                 android:layout_marginStart="16dp"
+                app:layout_constraintEnd_toEndOf="@id/cardView"
                 android:layout_marginTop="5dp"
+                android:textSize="11sp"
                 android:textColor="@color/green"
                 android:textStyle="italic"
                 android:id="@+id/tv_order_date"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>

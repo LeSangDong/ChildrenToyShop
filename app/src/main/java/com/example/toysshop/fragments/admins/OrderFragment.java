@@ -5,6 +5,8 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
@@ -19,11 +21,17 @@ import com.example.toysshop.adapter.OrderAdminAdapter;
 import com.example.toysshop.databinding.FragmentOrderBinding;
 import com.example.toysshop.model.Order;
 import com.example.toysshop.model.User;
+import com.example.toysshop.untils.OrderCountEvent;
+import com.example.toysshop.untils.UpdateCartEvent;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,7 +41,24 @@ public class OrderFragment extends Fragment implements SwipeRefreshLayout.OnRefr
 
     private FragmentOrderBinding binding;
     private OrderAdminAdapter orderAdminAdapter;
+    private NavController navController;
     private List<Order> mList = new ArrayList<>();
+    private int orderCount = 0;
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        EventBus.getDefault().register(this);
+    }
+    @Override
+    public void onStop() {
+        EventBus.getDefault().unregister(this);
+        super.onStop();
+    }
+    @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
+    public void onUpdateOrder(OrderCountEvent event) {
+
+    }
 
 
     @Override
@@ -48,14 +73,21 @@ public class OrderFragment extends Fragment implements SwipeRefreshLayout.OnRefr
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        iNit();
+
+
+        iNit(view);
 
         fetchAllOrder();
+
+        binding.btnBack.setOnClickListener(v->{
+          navController.navigateUp();
+        });
 
 
     }
 
-    private void iNit() {
+    private void iNit(View view) {
+        navController = Navigation.findNavController(view);
         binding.swipeRefreshLayout.setOnRefreshListener(this);
         binding.swipeRefreshLayout.setRefreshing(true);
         binding.recyclerview.setHasFixedSize(true);
@@ -68,12 +100,14 @@ public class OrderFragment extends Fragment implements SwipeRefreshLayout.OnRefr
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 mList.clear();
+                orderCount = 0;
                 for (DataSnapshot userSnapshot : snapshot.getChildren()) {
                     for (DataSnapshot orderSnapshot : userSnapshot.getChildren()) {
                         Order order = orderSnapshot.getValue(Order.class);
                         if (order != null && "Chờ xác nhận".equals(order.getStatus())) {
                             loadUserInfo(order.getUserId(), order);
                             mList.add(order);
+                            orderCount++;
                             Log.e("LOI","");
                         }
                     }
@@ -81,6 +115,7 @@ public class OrderFragment extends Fragment implements SwipeRefreshLayout.OnRefr
                 if(mList.isEmpty()){
                     binding.tvNoOrder.setVisibility(View.VISIBLE);
                 }
+                EventBus.getDefault().postSticky(new OrderCountEvent(orderCount));
                 if (orderAdminAdapter == null) {
                     orderAdminAdapter = new OrderAdminAdapter(mList);
                     binding.recyclerview.setAdapter(orderAdminAdapter);
@@ -102,13 +137,15 @@ public class OrderFragment extends Fragment implements SwipeRefreshLayout.OnRefr
     }
 
     private void loadUserInfo(String userId, Order order) {
-        DatabaseReference userRef = FirebaseDatabase.getInstance().getReference("account").child(userId);
+        DatabaseReference userRef = FirebaseDatabase.getInstance().getReference("account").child(userId)
+                .child("info");
         userRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 User user = snapshot.getValue(User.class);
                 if (user != null) {
-                    order.setAvatar_user("");
+                    String userImage = snapshot.child("avatarUrl").getValue(String.class);
+                    order.setAvatar_user(userImage);
                     orderAdminAdapter.notifyDataSetChanged();
                 }
             }
@@ -128,4 +165,6 @@ public class OrderFragment extends Fragment implements SwipeRefreshLayout.OnRefr
         fetchAllOrder();
 
     }
+
+
 }

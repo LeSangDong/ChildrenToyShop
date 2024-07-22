@@ -6,6 +6,7 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.CALL_PHONE" />
 
     <application
         android:allowBackup="true"
@@ -17,6 +18,27 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ToysShop"
         tools:targetApi="31">
+        <activity
+            android:name=".activitys.AdvertimentActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activitys.ForgotPasswordActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activitys.UpdateProductAdminActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activitys.SearchActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activitys.FeedbackActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activitys.InfoAdminActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activitys.ReplacePasswordActivity"
+            android:exported="false" />
         <activity
             android:name=".activitys.DoanhThuActivity"
             android:exported="false" />

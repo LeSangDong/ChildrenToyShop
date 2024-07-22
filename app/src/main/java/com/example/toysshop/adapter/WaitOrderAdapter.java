@@ -3,9 +3,11 @@ package com.example.toysshop.adapter;
 import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -71,6 +73,20 @@ public class WaitOrderAdapter extends RecyclerView.Adapter<WaitOrderAdapter.View
            intent.putParcelableArrayListExtra("cartItems", new ArrayList<>(order.getCartItems()));
            context.startActivity(intent);
        });
+//       holder.binding.point1.setBackgroundColor(ContextCompat.getColor(context, R.color.sky));
+//       holder.binding.point2.setBackgroundColor(ContextCompat.getColor(context, R.color.grey_icon));
+       if(order.getStatus().equals("Chờ xác nhận")){
+           holder.binding.tvStatusDelivery.setVisibility(View.GONE);
+         holder.binding.point2None.setVisibility(View.VISIBLE);
+         holder.binding.point2.setVisibility(View.GONE);
+         holder.binding.point1None.setVisibility(View.GONE);
+       }
+       else{
+           holder.binding.tvStatus.setVisibility(View.GONE);
+         holder.binding.point1.setVisibility(View.GONE);
+         holder.binding.point2.setVisibility(View.VISIBLE);
+         holder.binding.point2None.setVisibility(View.GONE);
+       }
     }
 
     @Override

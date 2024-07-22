@@ -14,15 +14,19 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.example.toysshop.R;
+import com.example.toysshop.adapter.ReviewAdapter;
 import com.example.toysshop.adapter.ToyAdapter;
 import com.example.toysshop.adapter.ViewPagerAdapter;
 import com.example.toysshop.database.CartDao;
 import com.example.toysshop.database.CartDatabase;
 import com.example.toysshop.databinding.ActivityDetailProductBinding;
 import com.example.toysshop.model.CartModel;
+import com.example.toysshop.model.Review;
 import com.example.toysshop.model.Toy;
 import com.example.toysshop.untils.UpdateCartEvent;
 import com.google.android.material.snackbar.Snackbar;
@@ -43,7 +47,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-public class DetailProductActivity extends AppCompatActivity {
+public class DetailProductActivity extends AppCompatActivity implements SwipeRefreshLayout.OnRefreshListener {
     private ActivityDetailProductBinding binding;
     private ViewPagerAdapter viewPagerAdapter;
     private List<Toy> mListToy;
@@ -124,7 +128,12 @@ public class DetailProductActivity extends AppCompatActivity {
         DecimalFormat format = new DecimalFormat("#,###");
         binding.tvPriceProduct.setText(new StringBuilder().append(format.format(toy.getPrice())).append("đ"));
         binding.tvDescription.setText(toy.getDescription());
-        binding.ratingBar.setRating((float) toy.getStar());
+       if(toy.getStar()>0){
+           binding.ratingBar.setRating((float) toy.getStar());
+       }
+       else{
+           binding.ratingBar.setVisibility(View.GONE);
+       }
         binding.tvPercent.setText(new StringBuilder("Giảm ").append(toy.getPriceDiscount()).append("%"));
         if (toy.getPriceDiscount() > 0) {
             double discountedPrice = toy.getPrice() * (1 - toy.getPriceDiscount() / 100.0);
@@ -158,6 +167,14 @@ public class DetailProductActivity extends AppCompatActivity {
 
         });
 
+        binding.iconGetAddress.setOnClickListener(v->{
+            startActivity(new Intent(this, HomeAddressActivity.class));
+        });
+
+
+        fetchAddress();
+        fetchReview(product_id);
+
 
 
 
@@ -169,6 +186,105 @@ public class DetailProductActivity extends AppCompatActivity {
             addtoCart(toy);
 
         });
+    }
+
+    private void fetchReview(int productId) {
+        DatabaseReference toyRef = FirebaseDatabase.getInstance().getReference("Toy")
+                .child(String.valueOf(productId)).child("reviews");
+        toyRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+               if(snapshot.exists()){
+                   List<Review> reviews = new ArrayList<>();
+                   for (DataSnapshot reviewSnapshot : snapshot.getChildren()) {
+                       Review review = reviewSnapshot.getValue(Review.class);
+                       if (review != null) {
+                           fetchUserInfo(review, reviews);
+                       }
+                   }
+               }
+               else{
+                   binding.tvNoUserReview.setVisibility(View.VISIBLE);
+               }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Log.e("Fetch_Review", "Failed to fetch reviews: " + error.getMessage());
+
+            }
+        });
+    }
+
+    private void fetchUserInfo(Review review, List<Review> reviews) {
+        DatabaseReference userRef = FirebaseDatabase.getInstance().getReference("account")
+                .child(review.getUserId()).child("info");
+        userRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if(snapshot.exists()){
+                    String userName = snapshot.child("name").getValue(String.class);
+                    String userImage = snapshot.child("avatarUrl").getValue(String.class);
+
+                    review.setUserName(userName);
+                    review.setUserImage(userImage);
+                    reviews.add(review);
+
+                    updateReviewRecyclerView(reviews);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Log.e("Fetch_User_Info", "Failed to fetch user info: " + error.getMessage());
+
+            }
+        });
+    }
+
+    private void updateReviewRecyclerView(List<Review> reviews) {
+        ReviewAdapter reviewAdapter = new ReviewAdapter(reviews);
+        binding.recyclerviewReview.setAdapter(reviewAdapter);
+
+    }
+
+    private void fetchAddress() {
+        FirebaseUser currentUser = auth.getCurrentUser();
+        if(currentUser != null){
+            DatabaseReference phoneRef = FirebaseDatabase.getInstance().getReference("phone").child(currentUser.getUid());
+            phoneRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    if(snapshot.exists()){
+
+                        String address = snapshot.child("address").getValue(String.class);
+                        if(address != null){
+                            binding.tvAddressDelivery.setText(address);
+                        }
+                        else{
+                            binding.tvAddressDelivery.setText(new StringBuilder().append("Chưa có địa chỉ"));
+                        }
+
+                    binding.swipeRefreshLayout.setRefreshing(false);
+
+                    }
+                    else{
+                        binding.tvAddressDelivery.setText(new StringBuilder().append("Chưa có địa chỉ"));
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+
+                }
+            });
+
+        }
+        else{
+            Toast.makeText(this, "Bạn chưa đăng nhập", Toast.LENGTH_SHORT).show();
+        }
+
+
     }
 
     private void countCartItem() {
@@ -239,9 +355,14 @@ public class DetailProductActivity extends AppCompatActivity {
 
 
     private void initalized() {
+        binding.swipeRefreshLayout.setOnRefreshListener(this);
+        binding.swipeRefreshLayout.setRefreshing(true);
         auth = FirebaseAuth.getInstance();
         binding.recyclerviewSuggestProduct.setHasFixedSize(true);
         binding.recyclerviewSuggestProduct.setLayoutManager(new GridLayoutManager(this, 2));
+
+        binding.recyclerviewReview.setHasFixedSize(true);
+        binding.recyclerviewReview.setLayoutManager(new LinearLayoutManager(this));
 
 
     }
@@ -278,5 +399,11 @@ public class DetailProductActivity extends AppCompatActivity {
     public void onBackPressed() {
         super.onBackPressed();
         overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
+    }
+
+    @Override
+    public void onRefresh() {
+        fetchAddress();
+
     }
 }

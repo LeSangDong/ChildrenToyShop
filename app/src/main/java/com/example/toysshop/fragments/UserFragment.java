@@ -10,6 +10,7 @@ import androidx.navigation.NavController;
 import androidx.navigation.NavHostController;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.util.Log;
@@ -28,11 +29,13 @@ import com.example.toysshop.activitys.SettingActivity;
 import com.example.toysshop.activitys.ViewInfoActivity;
 import com.example.toysshop.activitys.ViewNotificationActivity;
 import com.example.toysshop.activitys.WaitConfirmOrderActivity;
+import com.example.toysshop.adapter.ProductFeedBackAdapter;
 import com.example.toysshop.adapter.ToyAdapter;
 import com.example.toysshop.configs.CenterGridItemDecoration;
 import com.example.toysshop.database.CartDao;
 import com.example.toysshop.database.CartDatabase;
 import com.example.toysshop.databinding.FragmentUserBinding;
+import com.example.toysshop.model.CartModel;
 import com.example.toysshop.model.Order;
 import com.example.toysshop.model.Toy;
 import com.example.toysshop.untils.UpdateCartEvent;
@@ -44,6 +47,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import org.greenrobot.eventbus.EventBus;
@@ -64,6 +68,9 @@ public class UserFragment extends Fragment{
     private List<Toy> mListToy;
     private List<Order> mListOrderProcess;
     private List<Order> mListOrderDelivery;
+    private List<CartModel> mListProductFeedBack;
+    private ProductFeedBackAdapter productFeedBackAdapter;
+
 
 
 
@@ -144,12 +151,72 @@ public class UserFragment extends Fragment{
         //fetchAllNotification
         fetchNotification();
 
+        //fetchAllProductBought
+        fetAllBougntProduct();
+
 
 
 
 
     }
 
+    private void fetAllBougntProduct() {
+        mListProductFeedBack = new ArrayList<>();
+        FirebaseUser currentUser = auth.getCurrentUser();
+        if (currentUser != null) {
+            String userId = currentUser.getUid();
+            DatabaseReference productRef = FirebaseDatabase.getInstance().getReference("Orders").child(userId);
+            Query query = productRef.orderByChild("status").equalTo("đang vận chuyển");
+
+            query.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    for (DataSnapshot orderSnapshot : snapshot.getChildren()) {
+                        Order order = orderSnapshot.getValue(Order.class);
+                        if (order != null && order.getStatus().equals("đang vận chuyển")) {
+                            List<CartModel> cartItems = order.getCartItems();
+                            if (cartItems != null) {
+                                for (CartModel item : cartItems) {
+                                    checkIfUserReviewedProduct(item, userId);
+                                }
+                            }
+                        }
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+                    Log.e("UserFragment", "fetAllBougntProduct: onCancelled", error.toException());
+                }
+            });
+        }
+    }
+
+    private void checkIfUserReviewedProduct(CartModel item, String userId) {
+
+        DatabaseReference reviewsRef = FirebaseDatabase.getInstance().getReference("Toy/" + item.getProductId() + "/reviews");
+        reviewsRef.orderByChild("userId").equalTo(userId).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (!snapshot.exists()) {
+                    // User has not reviewed this product, add it to the list
+                    mListProductFeedBack.add(item);
+                    // Notify the adapter about the data change
+                    if (productFeedBackAdapter == null) {
+                        productFeedBackAdapter = new ProductFeedBackAdapter(mListProductFeedBack);
+                        binding.recyclerviewFeedback.setAdapter(productFeedBackAdapter);
+                    } else {
+                        productFeedBackAdapter.notifyDataSetChanged();
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Log.e("UserFragment", "checkIfUserReviewedProduct: onCancelled", error.toException());
+            }
+        });
+    }
 
 
     private void fetchNotification() {
@@ -389,6 +456,9 @@ public class UserFragment extends Fragment{
         binding.recyclerview.addItemDecoration(new CenterGridItemDecoration(spacing));
         binding.recyclerview.setLayoutManager(new GridLayoutManager(
                 requireContext(), 2));
+
+        binding.recyclerviewFeedback.setHasFixedSize(true);
+        binding.recyclerviewFeedback.setLayoutManager(new LinearLayoutManager(requireContext(),LinearLayoutManager.HORIZONTAL,false));
 
     }
 

@@ -88,6 +88,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@id/icon_person"
             android:text="Le Van A"
+            app:layout_constraintEnd_toEndOf="parent"
             android:textStyle="bold"
             android:textColor="@color/black"
              android:fontFamily="@font/inter"
@@ -95,7 +96,7 @@
             android:layout_marginStart="16dp"
             android:layout_marginEnd="16dp"
             android:id="@+id/tv_user_name"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
@@ -125,8 +126,9 @@
             android:textColor="@color/grey"
             android:layout_marginStart="16dp"
             android:layout_marginEnd="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
             android:id="@+id/tv_address"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>

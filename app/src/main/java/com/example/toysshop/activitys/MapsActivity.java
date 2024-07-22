@@ -29,6 +29,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private EditText locationEditText;
 
     private ActivityMapsBinding binding;
+    private  Address address;
 
 
     @Override
@@ -54,15 +55,13 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     try {
                         addresses = geocoder.getFromLocationName(location, 1);
                         if (addresses != null && !addresses.isEmpty()) {
-                            Address address = addresses.get(0);
+                             address = addresses.get(0);
                             LatLng latLng = new LatLng(address.getLatitude(), address.getLongitude());
                             gMap.clear();
                             gMap.addMarker(new MarkerOptions().position(latLng).title(address.getAddressLine(0)));
                             gMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 15));
 
-                            Intent intent = new Intent(MapsActivity.this, HomeAddressActivity.class);
-                            intent.putExtra("address", address.getAddressLine(0));
-                            startActivity(intent);
+
                         } else {
                             Toast.makeText(MapsActivity.this, "Location not found", Toast.LENGTH_SHORT).show();
                         }
@@ -74,6 +73,12 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     Toast.makeText(MapsActivity.this, "Please enter a location", Toast.LENGTH_SHORT).show();
                 }
             }
+        });
+        binding.btnGetAddress.setOnClickListener(v->{
+            Intent intent = new Intent(MapsActivity.this, HomeAddressActivity.class);
+            intent.putExtra("address", address.getAddressLine(0));
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
         });
     }
 

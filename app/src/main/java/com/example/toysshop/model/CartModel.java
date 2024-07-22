@@ -20,6 +20,7 @@ public class CartModel implements Parcelable {
     private Double totalPrice;
     private boolean ischecked;
 
+
     public CartModel() {
     }
 
@@ -165,4 +166,6 @@ public class CartModel implements Parcelable {
         }
         parcel.writeByte((byte) (ischecked ? 1 : 0));
     }
+
+
 }

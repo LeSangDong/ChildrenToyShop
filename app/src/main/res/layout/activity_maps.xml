@@ -44,6 +44,19 @@
            android:layout_height="wrap_content"/>
 
    </androidx.constraintlayout.widget.ConstraintLayout>
+    <androidx.appcompat.widget.AppCompatButton
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:background="@drawable/custom_btn_buy_now"
+        android:backgroundTint="@color/sky"
+        android:layout_marginHorizontal="16dp"
+        android:text="Lấy Địa Chỉ"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:id="@+id/btn_get_address"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
 
 
 </RelativeLayout>

@@ -5,7 +5,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -52,6 +54,30 @@ public class DoanhThuActivity extends AppCompatActivity implements SwipeRefreshL
         loadAllDoanhThu();
         setupDatePickers();
         binding.iconSearch.setOnClickListener(v -> filterDoanhThuByDateRange());
+        binding.btnBack.setOnClickListener(v->{
+            finish();
+        });
+
+        binding.iconDelete.setOnClickListener(v->{
+            showDialogDelete();
+        });
+    }
+
+    private void showDialogDelete() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage("Bạn có chắn muốn xóa toàn bộ hóa đơn ?");
+        builder.setPositiveButton("Xóa", (dialog, i) -> {
+
+            dialog.dismiss();
+
+
+        });
+        builder.setNegativeButton("Hủy", (dialog, i) -> {
+            dialog.dismiss();
+
+        });
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
     }
 
     private void setupDatePickers() {
@@ -121,6 +147,9 @@ public class DoanhThuActivity extends AppCompatActivity implements SwipeRefreshL
                     }
                 }
             }
+            if(filteredList.isEmpty()){
+                binding.tvNoBill.setVisibility(View.VISIBLE);
+            }
 
             doanhThuAdapter = new DoanhThuAdapter(filteredList);
             binding.recylerview.setAdapter(doanhThuAdapter);
@@ -165,6 +194,9 @@ public class DoanhThuActivity extends AppCompatActivity implements SwipeRefreshL
                         return 0;
                     }
                 });
+                if(orderedList.isEmpty()){
+                    binding.tvNoBill.setVisibility(View.VISIBLE);
+                }
 
                 doanhThuAdapter = new DoanhThuAdapter(orderedList);
                 binding.recylerview.setAdapter(doanhThuAdapter);
@@ -191,10 +223,14 @@ public class DoanhThuActivity extends AppCompatActivity implements SwipeRefreshL
         binding.swipeRefreshLayout.setRefreshing(true);
         binding.recylerview.setHasFixedSize(true);
         binding.recylerview.setLayoutManager(new LinearLayoutManager(this));
+
     }
 
     @Override
     public void onRefresh() {
         loadAllDoanhThu();
+        binding.edtStartDay.setText("");
+        binding.edtEndDay.setText("");
+        binding.tvNoBill.setVisibility(View.GONE);
     }
 }

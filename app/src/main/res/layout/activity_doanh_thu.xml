@@ -35,6 +35,15 @@
             android:fontFamily="@font/inter"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
+        <ImageView
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginEnd="16dp"
+            android:src="@drawable/baseline_delete_outline_24"
+            android:id="@+id/icon_delete"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -92,6 +101,16 @@
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+    <TextView
+        android:layout_below="@id/layout_search"
+        android:text="Không tìm thấy hóa đơn nào"
+        android:layout_centerHorizontal="true"
+        android:fontFamily="@font/inter"
+        android:textColor="@color/grey"
+        android:id="@+id/tv_no_bill"
+        android:visibility="gone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:layout_below="@id/layout_search"
         android:id="@+id/swipeRefreshLayout"
@@ -100,7 +119,6 @@
         android:layout_height="match_parent">
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recylerview"
-            android:padding="5dp"
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
 

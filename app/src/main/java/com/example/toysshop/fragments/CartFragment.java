@@ -64,6 +64,7 @@ public class CartFragment extends Fragment implements OnCartItemChangeListener {
     private List<CartModel> cartItems;
     private List<Toy> mListToy;
     private ToyAdapter toyAdapter;
+    private  String address;
 
     @Override
     public void onStart() {
@@ -149,10 +150,18 @@ public class CartFragment extends Fragment implements OnCartItemChangeListener {
 
                 // Chuyển danh sách item đã được chọn qua OrderActivity
                 if(checkedCartItems.size() > 0){
-                    Intent intent = new Intent(getActivity(), ConfirmOrderActivity.class);
-                    intent.putParcelableArrayListExtra("checkedCartItems", new ArrayList<>(checkedCartItems));
-                    intent.putExtra("totalPrice", totalPrice);
-                    startActivity(intent);
+                    if(address == null){
+                        getActivity().runOnUiThread(() ->
+                                Toast.makeText(requireContext(), "Vui lòng chọn địa chỉ!", Toast.LENGTH_SHORT).show()
+                        );
+                    }
+                    else{
+                        Intent intent = new Intent(getActivity(), ConfirmOrderActivity.class);
+                        intent.putParcelableArrayListExtra("checkedCartItems", new ArrayList<>(checkedCartItems));
+                        intent.putExtra("totalPrice", totalPrice);
+                        startActivity(intent);
+                    }
+
                 }
                 else{
                     getActivity().runOnUiThread(() ->
@@ -160,7 +169,11 @@ public class CartFragment extends Fragment implements OnCartItemChangeListener {
                     );
                 }
 
+
+
+
             }).start();
+
 
         });
 
@@ -176,7 +189,7 @@ public class CartFragment extends Fragment implements OnCartItemChangeListener {
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
                     if (snapshot.exists()) {
 
-                        String address = snapshot.child("address").getValue(String.class);
+                         address = snapshot.child("address").getValue(String.class);
                         if (address != null) {
                             binding.tvAddress.setText(address);
                         } else {
