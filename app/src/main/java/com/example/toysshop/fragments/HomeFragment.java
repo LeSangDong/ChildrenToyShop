@@ -3,6 +3,8 @@ package com.example.toysshop.fragments;
 import android.content.Intent;
 import android.graphics.Paint;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,6 +21,7 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.NavigationUI;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.viewpager2.widget.ViewPager2;
 
 import com.example.toysshop.R;
 import com.example.toysshop.activitys.AddressActivity;
@@ -51,6 +54,8 @@ import org.greenrobot.eventbus.ThreadMode;
 import java.util.ArrayList;
 import java.util.List;
 
+import me.relex.circleindicator.CircleIndicator3;
+
 
 public class HomeFragment extends Fragment {
 
@@ -69,6 +74,21 @@ public class HomeFragment extends Fragment {
 
     private CartDao cartDao;
     private NavController navController;
+    private CircleIndicator3 circleIndicator3;
+    private Handler mHanler = new Handler(Looper.getMainLooper());
+
+    private Runnable mRunnable = new Runnable() {
+        @Override
+        public void run() {
+            if (binding.viewpager2.getCurrentItem() == mUrlBanners.size() - 1) {
+                binding.viewpager2.setCurrentItem(0);
+            } else {
+                binding.viewpager2.setCurrentItem(binding.viewpager2.getCurrentItem() + 1);
+            }
+
+
+        }
+    };
 
 
     @Override
@@ -115,6 +135,16 @@ public class HomeFragment extends Fragment {
         cartDao = cartDatabase.cartDao();
         countCartItem();
 
+        binding.viewpager2.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
+            @Override
+            public void onPageSelected(int position) {
+                mHanler.removeCallbacks(mRunnable);
+                mHanler.postDelayed(mRunnable, 3000);
+            }
+        });
+
+
+
 
 
         //set dia chi
@@ -153,7 +183,8 @@ public class HomeFragment extends Fragment {
     private void fetchAddress() {
         FirebaseUser currentUser = auth.getCurrentUser();
         if(currentUser != null){
-            DatabaseReference phoneRef = FirebaseDatabase.getInstance().getReference("phone").child(currentUser.getUid());
+            DatabaseReference phoneRef = FirebaseDatabase.getInstance().getReference("phone")
+                    .child(currentUser.getUid());
             phoneRef.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -167,8 +198,6 @@ public class HomeFragment extends Fragment {
                                binding.tvTitleLocation.setVisibility(View.GONE);
                                binding.tvLocation.setVisibility(View.GONE);
                            }
-
-
 
                     }
                     else{
@@ -208,6 +237,7 @@ public class HomeFragment extends Fragment {
                             }
                             bannerViewpagerAdapter = new BannerViewpagerAdapter(mUrlBanners);
                             binding.viewpager2.setAdapter(bannerViewpagerAdapter);
+                            binding.circleIndicator3.setViewPager(binding.viewpager2);
                         }
                     }
 
@@ -442,6 +472,18 @@ public class HomeFragment extends Fragment {
                         .commitAllowingStateLoss();
             }
         });
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        mHanler.removeCallbacks(mRunnable);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        mHanler.postDelayed(mRunnable, 3000);
     }
 
 

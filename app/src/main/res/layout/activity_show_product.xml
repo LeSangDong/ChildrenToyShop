@@ -43,6 +43,15 @@
         android:background="@color/grey_icon"
         android:layout_width="match_parent"
         android:layout_height="1dp"/>
+    <TextView
+        android:layout_below="@id/line_1"
+        android:text="Không tìm thấy sản phẩm nào thuộc danh mục này"
+        android:fontFamily="@font/inter"
+        android:layout_centerInParent="true"
+        android:id="@+id/tv_no_product"
+        android:visibility="gone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
     <androidx.recyclerview.widget.RecyclerView
         android:layout_alignParentEnd="true"
         android:layout_alignParentStart="true"

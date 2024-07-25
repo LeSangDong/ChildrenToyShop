@@ -21,15 +21,13 @@
     <TextView
         android:text="Name Product"
         app:layout_constraintStart_toEndOf="@id/imageView"
-        app:layout_constraintEnd_toStartOf="@id/iv_delete"
-        app:layout_constraintHorizontal_bias="0"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         android:layout_marginStart="5dp"
         android:textColor="@color/grey"
         android:layout_marginEnd="10dp"
         android:textSize="16sp"
         android:textStyle="bold"
-
         android:id="@+id/tv_name_product"
         android:layout_width="0dp"
         android:layout_height="wrap_content"/>
@@ -46,15 +44,6 @@
         app:layout_constraintTop_toBottomOf="@id/tv_price_product"
         app:layout_constraintStart_toEndOf="@id/imageView"
         android:layout_marginStart="5dp"
-        android:text="152 000d"
-        android:textColor="@color/grey_icon"
-        android:id="@+id/tv_price_paint"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
-    <TextView
-        app:layout_constraintTop_toBottomOf="@id/tv_price_paint"
-        app:layout_constraintStart_toEndOf="@id/imageView"
-        android:layout_marginStart="5dp"
         android:text="So luong: 1"
         android:textColor="@color/grey"
         android:id="@+id/tv_quantity"
@@ -62,12 +51,6 @@
         android:layout_height="wrap_content"/>
 
 
-    <ImageView
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:src="@drawable/baseline_delete_24"
-        android:id="@+id/iv_delete"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

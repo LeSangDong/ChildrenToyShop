@@ -80,6 +80,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
         holder.binding.ivMinus.setOnClickListener(v->minusQuantity(cartModel, holder));
         //action plus
         holder.binding.ivPlus.setOnClickListener(v->plusQuantity(cartModel,holder));
+        holder.binding.ivDelete.setOnClickListener(v-> openDialogDelete(cartModel));
 
 
 
@@ -120,17 +121,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
 
     }
 
-//    private void updateTotalPrice(ViewHolder holder, CartModel cartModel) {
-//
-//        double totalPrice = 0.0;
-//        for (CartModel item : cartItems) {
-//            totalPrice += item.getQuantity() * item.getPrice();
-//        }
-//        if (listener != null) {
-//            listener.onCartItemChanged(totalPrice);
-//        }
-//
-//    }
+
 
     private void plusQuantity(CartModel cartModel, ViewHolder holder) {
         int newQuantity = cartModel.getQuantity() + 1;

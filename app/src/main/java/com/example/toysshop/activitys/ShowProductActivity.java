@@ -6,6 +6,7 @@ import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.GridLayoutManager;
 
 import android.os.Bundle;
+import android.view.View;
 
 import com.example.toysshop.R;
 import com.example.toysshop.adapter.ToyAdapter;
@@ -38,9 +39,15 @@ public class ShowProductActivity extends AppCompatActivity {
         iNit();
         //set view
        int category_id = getIntent().getIntExtra("category_id",-1);
+       String category_name = getIntent().getStringExtra("category_name");
        if(category_id != -1){
            showProduct(category_id);
+           binding.tvCategory.setText(category_name);
        }
+
+       binding.ivBack.setOnClickListener(v->{
+           finish();
+       });
 
 
 
@@ -60,9 +67,16 @@ public class ShowProductActivity extends AppCompatActivity {
                         if(toy != null && toy.getCategoryId() == categoryId){
                             mProductList.add(toy);
                         }
+
+                    }
+                    if(mProductList.size() == 0){
+                        binding.tvNoProduct.setVisibility(View.VISIBLE);
                     }
                     toyAdapter = new ToyAdapter(mProductList);
                     binding.recyclerview.setAdapter(toyAdapter);
+                }
+                else{
+                    binding.tvNoProduct.setVisibility(View.VISIBLE);
                 }
             }
 

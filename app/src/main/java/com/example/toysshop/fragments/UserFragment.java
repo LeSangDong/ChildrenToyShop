@@ -179,8 +179,10 @@ public class UserFragment extends Fragment{
                                 for (CartModel item : cartItems) {
                                     checkIfUserReviewedProduct(item, userId);
                                 }
+
                             }
                         }
+
                     }
                 }
 
@@ -201,6 +203,7 @@ public class UserFragment extends Fragment{
                 if (!snapshot.exists()) {
                     // User has not reviewed this product, add it to the list
                     mListProductFeedBack.add(item);
+
                     // Notify the adapter about the data change
                     if (productFeedBackAdapter == null) {
                         productFeedBackAdapter = new ProductFeedBackAdapter(mListProductFeedBack);
@@ -208,7 +211,11 @@ public class UserFragment extends Fragment{
                     } else {
                         productFeedBackAdapter.notifyDataSetChanged();
                     }
+
                 }
+
+
+
             }
 
             @Override

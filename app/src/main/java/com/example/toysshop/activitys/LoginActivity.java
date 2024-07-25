@@ -107,6 +107,9 @@ public class LoginActivity extends BaseActivity {
             Intent intent = googleSignInClient.getSignInIntent();
             activityResultLauncher.launch(intent);
         });
+        binding.btnBack.setOnClickListener(v->{
+            finish();
+        });
 
         loginAccount();
         binding.btnBack.setOnClickListener(v -> {

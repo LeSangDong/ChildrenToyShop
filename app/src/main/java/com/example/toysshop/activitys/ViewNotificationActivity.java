@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Toast;
 
 import com.example.toysshop.R;
@@ -64,6 +65,9 @@ public class ViewNotificationActivity extends AppCompatActivity implements Swipe
                         if (order != null && "đã bị từ chối".equals(order.getStatus()) || "đang vận chuyển".equals(order.getStatus())) {
                             orderList.add(order);
                         }
+                    }
+                    if(orderList.size() == 0){
+                        binding.tvEmptyNotification.setVisibility(View.VISIBLE);
                     }
                     notificationAdapter = new NotificationAdapter(orderList);
                     binding.recyclerview.setAdapter(notificationAdapter);

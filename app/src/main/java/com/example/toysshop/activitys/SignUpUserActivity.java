@@ -37,6 +37,9 @@ public class SignUpUserActivity extends BaseActivity {
         signupAccountUser();
         actionLogin();
 
+        binding.btnBack.setOnClickListener(v->{
+            finish();
+        });
 
 
     }
@@ -82,6 +85,12 @@ public class SignUpUserActivity extends BaseActivity {
                 binding.progressBar.setVisibility(View.GONE);
                 binding.tvBtn.setVisibility(View.VISIBLE);
                 binding.edtPass.setError("Vui lòng nhập mật khẩu");
+                return;
+            }
+            if(password.length() <6){
+                binding.progressBar.setVisibility(View.GONE);
+                binding.tvBtn.setVisibility(View.VISIBLE);
+                binding.edtPass.setError("Mật khẩu mạnh phải >= 6 kí tự");
                 return;
             }
 

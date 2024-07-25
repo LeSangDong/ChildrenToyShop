@@ -63,20 +63,7 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
             holder.binding.tvTimeNotification.setText(new StringBuilder().append(order.getTime_deny()));
         }
 
-        holder.binding.ivDelete.setOnClickListener(v->{
-            DatabaseReference orderRef = ordersRef.child(order.getUserId()).child(order.getOrderId());
-            orderRef.removeValue().addOnSuccessListener(aVoid -> {
-                // Xóa thông báo khỏi danh sách và thông báo cho adapter
-                mListOrder.remove(position);
-                notifyItemRemoved(position);
-                notifyItemRangeChanged(position, mListOrder.size());
-                Toast.makeText(context, "Đã xóa", Toast.LENGTH_SHORT).show();
-            }).addOnFailureListener(e -> {
-                // Xử lý lỗi nếu cần
-            });
 
-
-        });
 
     }
 

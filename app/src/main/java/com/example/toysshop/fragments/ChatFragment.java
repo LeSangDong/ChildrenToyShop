@@ -8,6 +8,8 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.util.Log;
@@ -32,6 +34,7 @@ public class ChatFragment extends Fragment  implements SwipeRefreshLayout.OnRefr
     private String userId_admin;
     private  String url;
     private String name, phone;
+    private NavController navController;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -44,6 +47,7 @@ public class ChatFragment extends Fragment  implements SwipeRefreshLayout.OnRefr
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        iNit(view);
 
         binding.swipeRefreshLayout.setOnRefreshListener(this);
         binding.swipeRefreshLayout.setRefreshing(true);
@@ -74,6 +78,15 @@ public class ChatFragment extends Fragment  implements SwipeRefreshLayout.OnRefr
                 }
             }
         });
+        binding.btnBack.setOnClickListener(v -> {
+            navController.navigateUp();
+
+        });
+
+    }
+
+    private void iNit(View view) {
+        navController = Navigation.findNavController(view);
     }
 
     private void fetchAvatarAdmin(String adminUserId) {

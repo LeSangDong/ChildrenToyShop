@@ -161,6 +161,7 @@ public class AddProductActivity extends AppCompatActivity {
 
     private void uploadImagesAndPushProduct(String name_product, String price_product, String description,  String color_product,String size_product,  String thuong_hieu, int categoryId) {
         if (imagesUri.isEmpty()) {
+            ConfigDialog.hideDialog();
             Toast.makeText(AddProductActivity.this, "No images to upload", Toast.LENGTH_SHORT).show();
             return;
         }
@@ -188,10 +189,10 @@ public class AddProductActivity extends AppCompatActivity {
         // Tạo một đối tượng Toys mới
       Toy toy = new Toy();
         toy.setBestToy(binding.checkBestProduct.isChecked());
-        toy.setNewProduct(true); // Cập nhật theo logic của bạn
+        toy.setNewProduct(true);
         toy.setId(currentId); // Sử dụng ID hiện tại
-        toy.setLike(true); // Cập nhật theo logic của bạn
-        toy.setStar(5); // Cập nhật theo logic của bạn
+        toy.setLike(true);
+        toy.setStar(0);
         toy.setTitle(name_product);
         toy.setPrice(Double.parseDouble(price_product));
         toy.setDescription(description);
@@ -209,10 +210,12 @@ public class AddProductActivity extends AppCompatActivity {
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
                         // Xử lý khi lưu thông tin sản phẩm thành công
-                        Toast.makeText(AddProductActivity.this, "Product added successfully", Toast.LENGTH_SHORT).show();
+                        ConfigDialog.hideDialog();
+                        Toast.makeText(AddProductActivity.this, "Thêm sản phẩm thành công", Toast.LENGTH_SHORT).show();
                         clearInputFields();
                     } else {
                         // Xử lý khi lưu thông tin sản phẩm không thành công
+                        ConfigDialog.hideDialog();
                         Toast.makeText(AddProductActivity.this, "Failed to add product", Toast.LENGTH_SHORT).show();
                     }
                 });
@@ -221,16 +224,19 @@ public class AddProductActivity extends AppCompatActivity {
     private void checkValidInput() {
         String name_product = binding.edtNameProduct.getText().toString().trim();
         if (name_product.isEmpty()) {
+            ConfigDialog.hideDialog();
             Snackbar.make(binding.layoutMain, "Vui lòng nhập tên sản phẩm", Snackbar.LENGTH_SHORT).show();
             return;
         }
         String price_product = binding.edtPriceProduct.getText().toString().trim();
         if (price_product.isEmpty()) {
+            ConfigDialog.hideDialog();
             Snackbar.make(binding.layoutMain, "Vui lòng nhập giá sản phẩm", Snackbar.LENGTH_SHORT).show();
             return;
         }
         String description = binding.edtDescriptionProduct.getText().toString().trim();
         if (description.isEmpty()) {
+            ConfigDialog.hideDialog();
             Snackbar.make(binding.layoutMain, "Vui lòng nhập mô tả sản phẩm", Snackbar.LENGTH_SHORT).show();
             return;
         }
@@ -248,11 +254,13 @@ public class AddProductActivity extends AppCompatActivity {
 
         String size_product = binding.edtSizeProduct.getText().toString().trim();
         if (size_product.isEmpty()) {
+            ConfigDialog.hideDialog();
             Snackbar.make(binding.layoutMain, "Vui lòng nhập kích thước sản phẩm", Snackbar.LENGTH_SHORT).show();
             return;
         }
         String thuong_hieu = binding.edtThuonghieuProduct.getText().toString().trim();
         if (thuong_hieu.isEmpty()) {
+            ConfigDialog.hideDialog();
             Snackbar.make(binding.layoutMain, "Vui lòng nhập thương hiệu sản phẩm", Snackbar.LENGTH_SHORT).show();
             return;
         }
@@ -262,6 +270,7 @@ public class AddProductActivity extends AppCompatActivity {
 
         int categoryId = binding.spinnerCategory.getSelectedItemPosition();
         if (categoryId < 0) {
+            ConfigDialog.hideDialog();
             Snackbar.make(binding.layoutMain, "Vui lòng chọn danh mục sản phẩm", Snackbar.LENGTH_SHORT).show();
             return;
         }
@@ -316,6 +325,7 @@ public class AddProductActivity extends AppCompatActivity {
             if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 openGallery();
             } else {
+                ConfigDialog.hideDialog();
                 Toast.makeText(this, "Permission denied", Toast.LENGTH_SHORT).show();
             }
         }

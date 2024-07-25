@@ -40,7 +40,7 @@ public class ProductOrderAdapter extends RecyclerView.Adapter<ProductOrderAdapte
         DecimalFormat format = new DecimalFormat("#,###");
         holder.binding.tvPriceProduct.setText(new StringBuilder("Giá: ").append(format.format(cartModel.getPrice())).append("đ"));
         holder.binding.tvQuantity.setText(new StringBuilder("Số lượng: x").append(cartModel.getQuantity()));
-        holder.binding.tvPricePaint.setText(new StringBuilder("Giá: ").append(format.format(0)).append("đ"));
+
 
     }
 

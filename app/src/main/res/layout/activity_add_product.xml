@@ -172,7 +172,7 @@
              android:layout_width="match_parent"
              android:layout_height="wrap_content">
              <CheckBox
-                 android:text="Sản phẩm được ưa chuộng"
+                 android:text="Phổ biến sản phẩm"
                  android:id="@+id/check_best_product"
                  android:layout_width="wrap_content"
                  android:layout_height="wrap_content"/>

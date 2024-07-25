@@ -116,22 +116,7 @@ public class CartFragment extends Fragment implements OnCartItemChangeListener {
         });
 
 
-//        binding.scrollview.getViewTreeObserver().addOnScrollChangedListener(new ViewTreeObserver.OnScrollChangedListener() {
-//            @Override
-//            public void onScrollChanged() {
-//                // Lấy vị trí cuộn hiện tại của ScrollView
-//                int scrollY = binding.scrollview.getScrollY();
-//
-//                // Làm cái gì đó dựa trên vị trí cuộn (scrollY)
-//                if (scrollY > 0) {
-//                    binding.layoutBottom.setVisibility(View.GONE);
-//
-//                } else {
-//
-//                    binding.layoutBottom.setVisibility(View.VISIBLE);
-//                }
-//            }
-//        });
+
         binding.ivBack.setOnClickListener(v -> {
             navController.navigateUp();
 
